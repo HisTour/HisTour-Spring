@@ -1,0 +1,6 @@
+dependencies {
+    implementation project(':histour-input-http')
+    implementation project(':histour-output-postgresql')
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+}
