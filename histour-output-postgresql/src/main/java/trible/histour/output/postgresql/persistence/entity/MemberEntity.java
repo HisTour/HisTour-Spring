@@ -1,4 +1,4 @@
-package trible.histour.histouroutputpostgresql.persistence.entity;
+package trible.histour.output.postgresql.persistence.entity;
 
 import java.util.UUID;
 
