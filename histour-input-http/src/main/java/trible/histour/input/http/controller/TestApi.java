@@ -9,10 +9,9 @@ import trible.histour.input.http.docs.TestApiDocs;
 @RestController
 @RequiredArgsConstructor
 public class TestApi implements TestApiDocs {
-	private final TestUseCase testUseCase;
 
 	@GetMapping
-	public void test() {
-		testUseCase.test();
+	public String test() {
+		return "test";
 	}
 }
