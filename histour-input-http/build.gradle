@@ -1,0 +1,13 @@
+dependencies {
+	implementation project(':histour-application')
+
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+}
+
+jar {
+	enabled = true
+}
+
+bootJar {
+	enabled = false
+}
