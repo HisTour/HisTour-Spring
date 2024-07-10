@@ -2,19 +2,52 @@ package trible.histour.output.postgresql.persistence.entity;
 
 import java.util.UUID;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.Table;
+import lombok.NoArgsConstructor;
+import trible.histour.application.domain.member.Member;
+import trible.histour.application.domain.member.SocialType;
 
 @Entity
-public class MemberEntity {
+@Table(name = "member", schema = "histour")
+@NoArgsConstructor
+public class MemberEntity extends BaseEntity {
+		@Column(nullable = false, unique = true)
+		private UUID memberId;
+		@Column(nullable = false)
+		@Enumerated(value = EnumType.STRING)
+		private SocialType socialType;
+		@Column(nullable = false)
+		private String socialId;
+		private String profileImageUrl;
+		@Column(nullable = false)
+		private String username;
+		private String refreshToken;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+		private Long characterId;
 
-	private UUID memberId;
+		public MemberEntity(Member member) {
+				this.memberId = member.getMemberId();
+				this.socialType = member.getSocialType();
+				this.socialId = member.getSocialId();
+				this.profileImageUrl = member.getProfileImageUrl();
+				this.username = member.getUsername();
+				this.refreshToken = member.getRefreshToken();
+				this.characterId = member.getCharacterId();
+		}
 
-	private String name;
+		public Member toDomain() {
+				return Member.builder()
+								.memberId(memberId)
+								.socialType(socialType)
+								.socialId(socialId)
+								.profileImageUrl(profileImageUrl)
+								.username(username)
+								.refreshToken(refreshToken)
+								.characterId(characterId)
+								.build();
+		}
 }
