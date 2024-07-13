@@ -1,5 +1,7 @@
 package trible.histour.application.domain.mission;
 
+import java.util.List;
+
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
@@ -8,7 +10,8 @@ import lombok.Getter;
 @Getter
 public class Mission {
 		Long id;
-		@NotNull MissionType missionType;
+		@NotNull
+		List<MissionType> missionTypes;
 		@NotNull String content;
 		long placeId;
 }
