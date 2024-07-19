@@ -1,5 +1,7 @@
 spring:
   config:
+    import:
+      - classpath:database-config/application-prod.yml
     activate:
       on-profile: prod
 server:
