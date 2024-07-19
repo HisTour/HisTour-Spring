@@ -4,9 +4,9 @@ spring:
       on-profile: local
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/postgres?currentSchema=histour
-    username: postgres
-    password: postgres
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: validate
