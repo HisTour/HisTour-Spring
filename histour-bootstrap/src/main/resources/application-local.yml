@@ -1,5 +1,7 @@
 spring:
   config:
+    import:
+      - classpath:database-config/application-local.yml
     activate:
       on-profile: local
 server:
