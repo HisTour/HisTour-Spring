@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import trible.histour.input.http.docs.TestApiDocs;
+import trible.histour.input.http.controller.docs.TestApiDocs;
 
 @RestController
 @RequiredArgsConstructor

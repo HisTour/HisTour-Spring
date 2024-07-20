@@ -9,7 +9,7 @@ import lombok.Getter;
 @Builder
 @Getter
 public class Member {
-		UUID memberId;
+		UUID memberUid;
 		@NotNull SocialType socialType;
 		@NotNull String socialId;
 		String profileImageUrl;

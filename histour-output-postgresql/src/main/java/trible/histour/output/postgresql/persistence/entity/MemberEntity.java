@@ -16,7 +16,7 @@ import trible.histour.application.domain.member.SocialType;
 @NoArgsConstructor
 public class MemberEntity extends BaseEntity {
 		@Column(nullable = false, unique = true)
-		private UUID memberId;
+		private UUID memberUid;
 		@Column(nullable = false)
 		@Enumerated(value = EnumType.STRING)
 		private SocialType socialType;
@@ -30,7 +30,7 @@ public class MemberEntity extends BaseEntity {
 		private Long characterId;
 
 		public MemberEntity(Member member) {
-				this.memberId = member.getMemberId();
+				this.memberUid = member.getMemberUid();
 				this.socialType = member.getSocialType();
 				this.socialId = member.getSocialId();
 				this.profileImageUrl = member.getProfileImageUrl();
@@ -41,7 +41,7 @@ public class MemberEntity extends BaseEntity {
 
 		public Member toDomain() {
 				return Member.builder()
-								.memberId(memberId)
+								.memberUid(memberUid)
 								.socialType(socialType)
 								.socialId(socialId)
 								.profileImageUrl(profileImageUrl)
