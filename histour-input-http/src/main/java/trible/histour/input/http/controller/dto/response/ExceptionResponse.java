@@ -1,18 +1,24 @@
 package trible.histour.input.http.controller.dto.response;
 
-import lombok.AccessLevel;
-import lombok.Builder;
+import java.time.LocalDateTime;
 
-@Builder(access = AccessLevel.PRIVATE)
-public record ExceptionResponse(
-				boolean success,
-				String message
-) {
+import com.fasterxml.jackson.annotation.JsonInclude;
 
-		public static ExceptionResponse of(String message) {
-				return ExceptionResponse.builder()
-								.success(false)
-								.message(message)
-								.build();
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class ExceptionResponse {
+		private final String message;
+		private final String cause;
+		private final LocalDateTime timestamp;
+
+		public ExceptionResponse(String message) {
+				this.message = message;
+				this.cause = "";
+				this.timestamp = LocalDateTime.now();
+		}
+
+		public ExceptionResponse(String message, String cause) {
+				this.message = message;
+				this.cause = cause;
+				this.timestamp = LocalDateTime.now();
 		}
 }
