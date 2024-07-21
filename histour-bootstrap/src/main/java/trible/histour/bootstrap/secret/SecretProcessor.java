@@ -14,6 +14,8 @@ import org.springframework.web.client.RestClient;
 
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
+import trible.histour.common.exception.ExceptionCode;
+import trible.histour.common.exception.HistourException;
 
 @Slf4j
 public class SecretProcessor implements EnvironmentPostProcessor {
@@ -43,7 +45,9 @@ public class SecretProcessor implements EnvironmentPostProcessor {
 				val currentEnvironment = activeProfiles.stream()
 								.filter(SUPPORT_PROFILES::contains)
 								.findFirst()
-								.orElseThrow(() -> new RuntimeException("No active profile found")); //TODO: custom Exception 적용
+								.orElseThrow(() -> new HistourException(
+												ExceptionCode.INTERNAL_SERVER_ERROR,
+												"Profiles: " + activeProfiles));
 
 				val response = secretManagerRestClient(secretToken).get()
 								.uri(uriBuilder -> uriBuilder
@@ -60,7 +64,7 @@ public class SecretProcessor implements EnvironmentPostProcessor {
 		private String getPropertyOrThrow(ConfigurableEnvironment environment, String propertyName) {
 				String property = environment.getProperty(propertyName, String.class);
 				if (property == null) {
-						throw new RuntimeException("SECRET_MANAGER_CONFIG_NOT_SET"); //TODO: Custom Exception
+						throw new HistourException(ExceptionCode.INTERNAL_SERVER_ERROR, "SECRET_MANAGER_CONFIG_NOT_SET");
 				}
 				return property;
 		}

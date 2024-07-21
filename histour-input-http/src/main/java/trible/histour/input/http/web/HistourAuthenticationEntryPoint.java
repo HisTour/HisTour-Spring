@@ -34,6 +34,6 @@ public class HistourAuthenticationEntryPoint implements AuthenticationEntryPoint
 		private ResponseEntity<ExceptionResponse> exceptionResponse() {
 				return ResponseEntity
 								.status(ExceptionCode.UNAUTHORIZED.getStatusCode())
-								.body(ExceptionResponse.of(ExceptionCode.UNAUTHORIZED.getMessage()));
+								.body(new ExceptionResponse(ExceptionCode.UNAUTHORIZED.getMessage()));
 		}
 }
