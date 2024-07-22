@@ -9,6 +9,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.persistence.AttributeConverter;
 import trible.histour.application.domain.mission.MissionType;
+import trible.histour.common.exception.ExceptionCode;
+import trible.histour.common.exception.HistourException;
 
 public class MissionTypeListConverter implements AttributeConverter<List<MissionType>, String> {
 		private static final ObjectMapper mapper = new ObjectMapper()
@@ -19,9 +21,8 @@ public class MissionTypeListConverter implements AttributeConverter<List<Mission
 		public String convertToDatabaseColumn(List<MissionType> missionTypes) {
 				try {
 						return mapper.writeValueAsString(missionTypes);
-				} catch (IOException ex) {
-						//TODO: 히스투어 예외 커스텀 후 적용
-						throw new IllegalArgumentException(ex.getMessage());
+				} catch (IOException exception) {
+						throw new HistourException(ExceptionCode.INTERNAL_SERVER_ERROR, exception.getMessage());
 				}
 		}
 

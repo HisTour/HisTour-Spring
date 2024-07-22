@@ -1,4 +1,5 @@
 dependencies {
+    implementation project(':histour-common')
     implementation project(':histour-input-http')
     implementation project(':histour-output-postgresql')
 
