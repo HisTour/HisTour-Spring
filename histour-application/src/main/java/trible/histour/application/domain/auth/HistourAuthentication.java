@@ -10,20 +10,20 @@ import lombok.Builder;
 
 public class HistourAuthentication extends UsernamePasswordAuthenticationToken {
 
-		@Builder(access = AccessLevel.PRIVATE)
-		public HistourAuthentication(
-						Object principal,
-						Object credentials,
-						Collection<? extends GrantedAuthority> authorities
-		) {
-				super(principal, credentials, authorities);
-		}
+	@Builder(access = AccessLevel.PRIVATE)
+	public HistourAuthentication(
+			Object principal,
+			Object credentials,
+			Collection<? extends GrantedAuthority> authorities
+	) {
+		super(principal, credentials, authorities);
+	}
 
-		public static <T> HistourAuthentication create(T principal) {
-				return HistourAuthentication.builder()
-								.principal(principal)
-								.credentials(null)
-								.authorities(null)
-								.build();
-		}
+	public static <T> HistourAuthentication create(T principal) {
+		return HistourAuthentication.builder()
+				.principal(principal)
+				.credentials(null)
+				.authorities(null)
+				.build();
+	}
 }

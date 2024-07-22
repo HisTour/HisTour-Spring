@@ -9,9 +9,9 @@ import lombok.Getter;
 @Builder
 @Getter
 public class Mission {
-		Long id;
-		@NotNull
-		List<MissionType> missionTypes;
-		@NotNull String content;
-		long placeId;
+	Long id;
+	@NotNull
+	List<MissionType> missionTypes;
+	@NotNull String content;
+	long placeId;
 }

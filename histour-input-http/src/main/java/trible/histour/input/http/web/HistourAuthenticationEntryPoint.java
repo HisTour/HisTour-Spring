@@ -17,23 +17,23 @@ import trible.histour.input.http.controller.dto.response.ExceptionResponse;
 
 @Component
 public class HistourAuthenticationEntryPoint implements AuthenticationEntryPoint {
-		private final ObjectMapper objectMapper = new ObjectMapper();
+	private final ObjectMapper objectMapper = new ObjectMapper();
 
-		@Override
-		public void commence(
-						HttpServletRequest request,
-						HttpServletResponse response,
-						AuthenticationException authException
-		) throws IOException {
-				response.setCharacterEncoding("UTF-8");
-				response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-				response.getWriter().println(objectMapper.writeValueAsString(exceptionResponse()));
-		}
+	@Override
+	public void commence(
+			HttpServletRequest request,
+			HttpServletResponse response,
+			AuthenticationException authException
+	) throws IOException {
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		response.getWriter().println(objectMapper.writeValueAsString(exceptionResponse()));
+	}
 
-		private ResponseEntity<ExceptionResponse> exceptionResponse() {
-				return ResponseEntity
-								.status(ExceptionCode.UNAUTHORIZED.getStatusCode())
-								.body(new ExceptionResponse(ExceptionCode.UNAUTHORIZED.getMessage()));
-		}
+	private ResponseEntity<ExceptionResponse> exceptionResponse() {
+		return ResponseEntity
+				.status(ExceptionCode.UNAUTHORIZED.getStatusCode())
+				.body(new ExceptionResponse(ExceptionCode.UNAUTHORIZED.getMessage()));
+	}
 }
