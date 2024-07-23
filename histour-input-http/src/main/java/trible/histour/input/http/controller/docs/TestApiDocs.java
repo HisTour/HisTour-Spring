@@ -1,6 +1,5 @@
 package trible.histour.input.http.controller.docs;
 
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.http.ResponseEntity;
 
 import io.swagger.v3.oas.annotations.Operation;
