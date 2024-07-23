@@ -1,4 +1,4 @@
-package trible.histour.common.dto;
+package trible.histour.input.http.common.dto;
 
 import static lombok.AccessLevel.*;
 
