@@ -1,6 +1,5 @@
 package trible.histour.input.http.controller;
 
-import static trible.histour.input.http.common.dto.SuccessResponse.success;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import trible.histour.input.http.common.dto.BaseResponse;
 import trible.histour.input.http.controller.docs.TestApiDocs;
+import trible.histour.input.http.controller.dto.response.SuccessResponse;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,7 +16,7 @@ import trible.histour.input.http.controller.docs.TestApiDocs;
 public class TestApi implements TestApiDocs {
 
 	@GetMapping
-	public ResponseEntity<BaseResponse> test() {
-		return ResponseEntity.ok(success("Test Success"));
+	public ResponseEntity<SuccessResponse<?>> test() {
+		return ResponseEntity.ok().build();
 	}
 }
