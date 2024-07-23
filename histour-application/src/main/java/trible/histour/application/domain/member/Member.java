@@ -9,12 +9,12 @@ import lombok.Getter;
 @Builder
 @Getter
 public class Member {
-		UUID memberUid;
-		@NotNull SocialType socialType;
-		@NotNull String socialId;
-		String profileImageUrl;
-		@NotNull String username;
-		String refreshToken;
+	UUID memberUid;
+	@NotNull SocialType socialType;
+	@NotNull String socialId;
+	String profileImageUrl;
+	@NotNull String username;
+	String refreshToken;
 
-		Long characterId;
+	Long characterId;
 }

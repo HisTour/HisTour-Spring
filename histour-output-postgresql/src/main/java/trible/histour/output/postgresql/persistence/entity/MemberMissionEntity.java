@@ -13,30 +13,29 @@ import trible.histour.application.domain.membermission.MissionState;
 @Table(name = "member_mission", schema = "histour")
 @NoArgsConstructor
 public class MemberMissionEntity extends BaseEntity {
-		@Column(nullable = false)
-		@Enumerated(EnumType.STRING)
-		private MissionState missionState;
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+	private MissionState missionState;
 
-		@Column(nullable = false)
-		private long memberId;
-		@Column(nullable = false)
-		private long missionId;
-		@Column(nullable = false)
-		private long placeId;
+	@Column(nullable = false)
+	private long memberId;
+	@Column(nullable = false)
+	private long missionId;
+	@Column(nullable = false)
+	private long placeId;
 
-		public MemberMissionEntity(MemberMission memberMission) {
-				this.missionState = memberMission.getMissionState();
-				this.memberId = memberMission.getMemberId();
-				this.missionId = memberMission.getMissionId();
-				this.placeId = memberMission.getPlaceId();
-		}
-		
-		public MemberMission toDomain() {
-				return MemberMission.builder()
-								.id(getId())
-								.memberId(memberId)
-								.missionId(missionId)
-								.placeId(placeId)
-								.build();
-		}
+	public MemberMissionEntity(MemberMission memberMission) {
+		this.missionState = memberMission.getMissionState();
+		this.memberId = memberMission.getMemberId();
+		this.missionId = memberMission.getMissionId();
+		this.placeId = memberMission.getPlaceId();
+	}
+	public MemberMission toDomain() {
+		return MemberMission.builder()
+				.id(getId())
+				.memberId(memberId)
+				.missionId(missionId)
+				.placeId(placeId)
+				.build();
+	}
 }

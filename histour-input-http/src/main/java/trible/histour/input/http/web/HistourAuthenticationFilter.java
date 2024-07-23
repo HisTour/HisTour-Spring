@@ -21,35 +21,35 @@ import trible.histour.application.domain.auth.TokenManager;
 @Component
 @RequiredArgsConstructor
 public class HistourAuthenticationFilter extends OncePerRequestFilter {
-		private final TokenManager tokenManager;
+	private final TokenManager tokenManager;
 
-		private static final String TOKEN_HEADER_NAME = "Authorization";
-		private static final String TOKEN_PREFIX = "Bearer ";
+	private static final String TOKEN_HEADER_NAME = "Authorization";
+	private static final String TOKEN_PREFIX = "Bearer ";
 
-		@Override
-		protected void doFilterInternal(
-						@NonNull HttpServletRequest request,
-						@NonNull HttpServletResponse response,
-						@NonNull FilterChain filterChain
-		) throws ServletException, IOException {
-				val token = getJwt(request);
-				if (isValidToken(token)) {
-						val memberUid = tokenManager.getMemberUid(token);
-						val authentication = HistourAuthentication.create(memberUid);
-						authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-						SecurityContextHolder.getContext().setAuthentication(authentication);
-				}
-				filterChain.doFilter(request, response);
+	@Override
+	protected void doFilterInternal(
+			@NonNull HttpServletRequest request,
+			@NonNull HttpServletResponse response,
+			@NonNull FilterChain filterChain
+	) throws ServletException, IOException {
+		val token = getJwt(request);
+		if (isValidToken(token)) {
+			val memberUid = tokenManager.getMemberUid(token);
+			val authentication = HistourAuthentication.create(memberUid);
+			authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+			SecurityContextHolder.getContext().setAuthentication(authentication);
 		}
+		filterChain.doFilter(request, response);
+	}
 
-		private String getJwt(HttpServletRequest request) {
-				val bearerToken = request.getHeader(TOKEN_HEADER_NAME);
-				return (StringUtils.hasText(bearerToken) && bearerToken.startsWith(TOKEN_PREFIX))
-								? bearerToken.substring(TOKEN_PREFIX.length())
-								: null;
-		}
+	private String getJwt(HttpServletRequest request) {
+		val bearerToken = request.getHeader(TOKEN_HEADER_NAME);
+		return (StringUtils.hasText(bearerToken) && bearerToken.startsWith(TOKEN_PREFIX))
+				? bearerToken.substring(TOKEN_PREFIX.length())
+				: null;
+	}
 
-		private boolean isValidToken(String token) {
-				return StringUtils.hasText(token) && tokenManager.validateToken(token);
-		}
+	private boolean isValidToken(String token) {
+		return StringUtils.hasText(token) && tokenManager.validateToken(token);
+	}
 }

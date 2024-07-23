@@ -7,6 +7,6 @@ import lombok.Getter;
 @Getter
 @Builder
 public class Character {
-		Long id;
-		@NotNull CharacterType characterType;
+	Long id;
+	@NotNull CharacterType characterType;
 }

@@ -14,11 +14,11 @@ import lombok.val;
 @Component
 @RequiredArgsConstructor
 public class SecretKeyFactory {
-		@Value("${histour.secret.key}")
-		private String HISTOUR_SECRET_KEY;
+	@Value("${histour.secret.key}")
+	private String histourSecretKey;
 
-		public SecretKey create() {
-				val encodedKey = getEncoder().encodeToString(HISTOUR_SECRET_KEY.getBytes());
-				return Keys.hmacShaKeyFor(encodedKey.getBytes());
-		}
+	public SecretKey create() {
+		val encodedKey = getEncoder().encodeToString(histourSecretKey.getBytes());
+		return Keys.hmacShaKeyFor(encodedKey.getBytes());
+	}
 }

@@ -18,27 +18,27 @@ import trible.histour.output.postgresql.persistence.converter.MissionTypeListCon
 @Table(name = "mission", schema = "histour")
 @NoArgsConstructor
 public class MissionEntity extends BaseEntity {
-		@Convert(converter = MissionTypeListConverter.class)
-		@Enumerated(EnumType.STRING)
-		@Column(columnDefinition = "TEXT", nullable = false)
-		private List<MissionType> missionTypes = new ArrayList<>();
-		@Column(nullable = false)
-		private String content;
-		@Column(nullable = false)
-		private long placeId;
+	@Convert(converter = MissionTypeListConverter.class)
+	@Enumerated(EnumType.STRING)
+	@Column(columnDefinition = "TEXT", nullable = false)
+	private List<MissionType> missionTypes = new ArrayList<>();
+	@Column(nullable = false)
+	private String content;
+	@Column(nullable = false)
+	private long placeId;
 
-		public MissionEntity(Mission mission) {
-				this.missionTypes = mission.getMissionTypes();
-				this.content = mission.getContent();
-				this.placeId = mission.getPlaceId();
-		}
+	public MissionEntity(Mission mission) {
+		this.missionTypes = mission.getMissionTypes();
+		this.content = mission.getContent();
+		this.placeId = mission.getPlaceId();
+	}
 
-		public Mission toDomain() {
-				return Mission.builder()
-								.id(getId())
-								.missionTypes(missionTypes)
-								.content(content)
-								.placeId(placeId)
-								.build();
-		}
+	public Mission toDomain() {
+		return Mission.builder()
+				.id(getId())
+				.missionTypes(missionTypes)
+				.content(content)
+				.placeId(placeId)
+				.build();
+	}
 }

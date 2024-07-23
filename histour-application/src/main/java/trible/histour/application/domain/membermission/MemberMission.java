@@ -7,9 +7,9 @@ import lombok.Getter;
 @Builder
 @Getter
 public class MemberMission {
-		Long id;
-		@NotNull MissionState missionState;
-		long memberId;
-		long missionId;
-		long placeId;
+	Long id;
+	@NotNull MissionState missionState;
+	long memberId;
+	long missionId;
+	long placeId;
 }

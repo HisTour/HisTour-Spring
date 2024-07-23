@@ -13,26 +13,26 @@ import trible.histour.application.domain.place.RegionType;
 @Table(name = "place", schema = "histour")
 @NoArgsConstructor
 public class PlaceEntity extends BaseEntity {
-		@Column(nullable = false)
-		private String name;
-		@Column(nullable = false)
-		private String description;
-		@Column(nullable = false)
-		@Enumerated(EnumType.STRING)
-		private RegionType regionType;
+	@Column(nullable = false)
+	private String name;
+	@Column(nullable = false)
+	private String description;
+	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
+	private RegionType regionType;
 
-		public PlaceEntity(Place place) {
-				this.name = place.getName();
-				this.description = place.getDescription();
-				this.regionType = place.getRegionType();
-		}
+	public PlaceEntity(Place place) {
+		this.name = place.getName();
+		this.description = place.getDescription();
+		this.regionType = place.getRegionType();
+	}
 
-		public Place toDomain() {
-				return Place.builder()
-								.id(getId())
-								.name(name)
-								.description(description)
-								.regionType(regionType)
-								.build();
-		}
+	public Place toDomain() {
+		return Place.builder()
+				.id(getId())
+				.name(name)
+				.description(description)
+				.regionType(regionType)
+				.build();
+	}
 }

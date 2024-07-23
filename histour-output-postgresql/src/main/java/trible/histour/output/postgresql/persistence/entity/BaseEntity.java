@@ -17,11 +17,11 @@ import lombok.Getter;
 @EntityListeners(AuditingEntityListener.class)
 @Getter
 public class BaseEntity {
-		@Id
-		@GeneratedValue(strategy = GenerationType.IDENTITY)
-		private Long id;
-		@CreatedDate
-		private LocalDateTime createdAt;
-		@LastModifiedDate
-		private LocalDateTime updatedAt;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	@CreatedDate
+	private LocalDateTime createdAt;
+	@LastModifiedDate
+	private LocalDateTime updatedAt;
 }

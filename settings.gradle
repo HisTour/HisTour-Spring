@@ -1,4 +1,4 @@
-rootProject.name = 'histour-spring'
+rootProject.name = 'HisTour-Spring'
 
 include 'histour-bootstrap'
 include 'histour-input-http'
