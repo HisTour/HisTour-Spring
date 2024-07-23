@@ -15,7 +15,6 @@ import trible.histour.input.http.common.dto.SuccessResponse;
 
 
 @Tag(name = "test", description = "SWAGGER 테스트용 API")
-@SecurityRequirement(name = "JWT Auth")
 public interface TestApiDocs {
 	@Operation(
 			summary = "서버 연결 테스트",
