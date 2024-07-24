@@ -1,5 +1,32 @@
 package trible.histour.input.http.controller.docs;
 
+import org.springframework.http.ResponseEntity;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import trible.histour.input.http.controller.dto.response.ExceptionResponse;
+import trible.histour.input.http.controller.dto.response.SuccessResponse;
+
+
+@Tag(name = "test", description = "SWAGGER 테스트용 API")
 public interface TestApiDocs {
-	String test();
+	@Operation(
+			summary = "서버 연결 테스트",
+			description = "서버 연결을 테스트합니다.",
+			responses = { @ApiResponse(
+							responseCode = "200",
+							description = "테스트 성공",
+							content = @Content(schema = @Schema(implementation = SuccessResponse.class))
+					), @ApiResponse(
+							responseCode = "500",
+							description = "서버 내부 오류",
+							content = @Content(schema = @Schema(implementation = ExceptionResponse.class))
+					)
+			}
+	)
+	ResponseEntity<SuccessResponse<?>> test();
 }
+
