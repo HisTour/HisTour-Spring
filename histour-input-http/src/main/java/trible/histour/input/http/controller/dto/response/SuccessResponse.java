@@ -12,4 +12,9 @@ public record SuccessResponse<T>(
 				.data(data)
 				.build();
 	}
+
+	public static SuccessResponse<?> ofEmpty() {
+		return SuccessResponse.builder()
+				.build();
+	}
 }
