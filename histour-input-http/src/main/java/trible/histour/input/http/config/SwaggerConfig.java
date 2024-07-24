@@ -8,22 +8,21 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
-import io.swagger.v3.oas.models.servers.Server;
-
+import lombok.val;
 
 
 @Configuration
 public class SwaggerConfig {
 	@Bean
 	public OpenAPI openApi() {
-		Info info = new Info()
+		val info = new Info()
 				.title("HISTOUR Swagger")
 				.description("HISTOUR API Docs")
 				.version("1.0.0");
 
-		String jwtSchemeName = "jwtAuth";
-		SecurityRequirement securityRequirement = new SecurityRequirement().addList(jwtSchemeName);
-		Components components = new Components()
+		val jwtSchemeName = "jwtAuth";
+		val securityRequirement = new SecurityRequirement().addList(jwtSchemeName);
+		val components = new Components()
 				.addSecuritySchemes(jwtSchemeName, new SecurityScheme()
 						.name(jwtSchemeName)
 						.type(SecurityScheme.Type.HTTP)
