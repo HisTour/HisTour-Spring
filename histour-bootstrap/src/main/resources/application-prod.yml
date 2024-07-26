@@ -3,6 +3,7 @@ spring:
     import:
       - classpath:database-config/application-prod.yml
       - classpath:application-config/application-prod.yml
+      - classpath:common-config/application-prod.yml
     activate:
       on-profile: prod
 server:

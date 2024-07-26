@@ -1,0 +1,10 @@
+spring:
+  config:
+    activate:
+      on-profile: prod
+server:
+  port: 8080
+
+discord:
+  webhook:
+    url: {DISCORD_WEBHOOK_URL} #TODO: 웹훅 url 생성 후 시크릿 매니저 등록
