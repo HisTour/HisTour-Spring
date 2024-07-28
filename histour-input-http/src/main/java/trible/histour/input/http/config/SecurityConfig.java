@@ -39,22 +39,28 @@ public class SecurityConfig {
 
 	private void setHttp(HttpSecurity http) throws Exception {
 		http.csrf(AbstractHttpConfigurer::disable)
-				.formLogin(AbstractHttpConfigurer::disable)
-				.sessionManagement(sessionManagement ->
-						sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-				.exceptionHandling(exceptionHandling ->
-						exceptionHandling.authenticationEntryPoint(authenticationEntryPoint))
-				.authorizeHttpRequests(authorizeHttpRequests ->
-						authorizeHttpRequests
-								.requestMatchers(new AntPathRequestMatcher("/error")).permitAll()
-								.anyRequest().authenticated())
-				.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
+			.formLogin(AbstractHttpConfigurer::disable)
+			.sessionManagement(
+				sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+			.exceptionHandling(
+				exceptionHandling -> exceptionHandling.authenticationEntryPoint(authenticationEntryPoint))
+			.authorizeHttpRequests(
+				authorizeHttpRequests -> authorizeHttpRequests.requestMatchers(new AntPathRequestMatcher("/error"))
+					.permitAll()
+					.requestMatchers(new AntPathRequestMatcher("/api/v1/test", "GET"))
+					.permitAll()
+					.anyRequest()
+					.authenticated())
+			.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
 	}
 
 	private void permitOpenApiUri(HttpSecurity http) throws Exception {
-		http.authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-				.requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**")).permitAll()
-				.requestMatchers(new AntPathRequestMatcher("/swagger-ui/**")).permitAll()
-				.requestMatchers(new AntPathRequestMatcher("/docs/**")).permitAll());
+		http.authorizeHttpRequests(
+			authorizeHttpRequests -> authorizeHttpRequests.requestMatchers(new AntPathRequestMatcher("/v3/api-docs/**"))
+				.permitAll()
+				.requestMatchers(new AntPathRequestMatcher("/swagger-ui/**"))
+				.permitAll()
+				.requestMatchers(new AntPathRequestMatcher("/docs/**"))
+				.permitAll());
 	}
 }
