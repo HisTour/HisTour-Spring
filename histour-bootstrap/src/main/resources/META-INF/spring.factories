@@ -1,0 +1,1 @@
+org.springframework.boot.env.EnvironmentPostProcessor=trible.histour.bootstrap.secret.SecretProcessor
