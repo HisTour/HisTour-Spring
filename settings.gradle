@@ -1,7 +1,0 @@
-rootProject.name = 'HisTour-Spring'
-
-include 'histour-bootstrap'
-include 'histour-input-http'
-include 'histour-application'
-include 'histour-output-postgresql'
-include 'histour-common'
