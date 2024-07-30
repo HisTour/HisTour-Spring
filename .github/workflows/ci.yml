@@ -18,15 +18,15 @@ jobs:
           java-version: '17'
           distribution: 'corretto'
 
-      - name: Download Infisical Secrets
-        run: |
-          curl -H "Authorization: Bearer ${{ secrets.SECRET_MANAGER_TOKEN }}" \
-               "https://api.infisical.com/workspace/${{ secrets.SECRET_MANAGER_WORKSPACE_ID }}/secrets" \
-               -o secrets.json
-          export DB_PASSWORD=$(jq -r '.DB_PASSWORD' secrets.json)
-          export DB_URL=$(jq -r '.DB_URL' secrets.json)
-          export DB_USERNAME=$(jq -r '.DB_USERNAME' secrets.json)
-          export HISTOUR_SECRET_KEY=$(jq -r '.HISTOUR_SECRET_KEY' secrets.json)
+#      - name: Download Infisical Secrets
+#        run: |
+#          curl -H "Authorization: Bearer ${{ secrets.SECRET_MANAGER_TOKEN }}" \
+#               "https://api.infisical.com/workspace/${{ secrets.SECRET_MANAGER_WORKSPACE_ID }}/secrets" \
+#               -o secrets.json
+#          export DB_PASSWORD=$(jq -r '.DB_PASSWORD' secrets.json)
+#          export DB_URL=$(jq -r '.DB_URL' secrets.json)
+#          export DB_USERNAME=$(jq -r '.DB_USERNAME' secrets.json)
+#          export HISTOUR_SECRET_KEY=$(jq -r '.HISTOUR_SECRET_KEY' secrets.json)
 
       - name: 빌드
         run: |
