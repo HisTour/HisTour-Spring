@@ -4,7 +4,7 @@ spring:
       on-profile: prod
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: ${DB_URL}
+    url: ${RDS_DB_URL}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
   jpa:
