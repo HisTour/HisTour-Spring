@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.NoArgsConstructor;
+import trible.histour.application.domain.character.Character;
 
 @Entity
 @Table(name = "character", schema = "histour")
@@ -15,4 +16,13 @@ public class CharacterEntity extends BaseEntity {
 	private String description;
 	@Column(nullable = false)
 	private String imageUrl;
+
+	public Character toDomain() {
+		return Character.builder()
+			.id(this.getId())
+			.name(this.name)
+			.description(this.description)
+			.imageUrl(this.imageUrl)
+			.build();
+	}
 }
