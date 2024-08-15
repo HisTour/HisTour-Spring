@@ -34,7 +34,7 @@ jobs:
 
       - name: docker image 빌드 및 푸시
         run: |
-          docker build --platform linux/amd64 -t histour/histour .
+          docker build --platform linux/amd64 -t histour/histour -f Dockerfile-prod .
           docker push histour/histour
 
   deploy-cd:
