@@ -85,15 +85,5 @@ java {
     }
 }
 
-jar {
-    manifest {
-        attributes(
-                'Main-Class': 'trible.histour.bootstrap.HistourBootstrapApplication'
-        )
-    }
-}
-
-bootJar {
-    enabled = true
-    mainClass = 'trible.histour.bootstrap.HistourBootstrapApplication'
-}
+bootJar { enabled = false }
+jar { enabled = true }
