@@ -86,7 +86,11 @@ java {
 }
 
 jar {
-    enabled = true
+    manifest {
+        attributes(
+                'Main-Class': 'histour-bootstrap/src/main/java/trible/histour/bootstrap/HistourBootstrapApplication.java'
+        )
+    }
 }
 
 bootJar {
