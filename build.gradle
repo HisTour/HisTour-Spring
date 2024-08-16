@@ -94,5 +94,6 @@ jar {
 }
 
 bootJar {
-    enabled = false
+    enabled = true
+    mainClass = 'trible.histour.bootstrap.HistourBootstrapApplication'
 }
