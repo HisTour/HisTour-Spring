@@ -88,7 +88,7 @@ java {
 jar {
     manifest {
         attributes(
-                'Main-Class': 'trible.histour.bootstrap.HistourBootstrapApplication.java'
+                'Main-Class': 'trible.histour.bootstrap.HistourBootstrapApplication'
         )
     }
 }
