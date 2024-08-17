@@ -1,4 +1,5 @@
 #!/bin/bash
+source .env
 
 nginx_config_path="/etc/nginx"
 all_port=("8080" "8081")
