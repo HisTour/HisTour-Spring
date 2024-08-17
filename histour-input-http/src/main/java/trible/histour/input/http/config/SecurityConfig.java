@@ -34,6 +34,7 @@ public class SecurityConfig {
 	@Profile("prod")
 	public SecurityFilterChain filterChainProd(HttpSecurity http) throws Exception {
 		permitHealthCheckApiUri(http);
+		permitOpenApiUri(http);
 		setHttp(http);
 		return http.build();
 	}
@@ -69,6 +70,6 @@ public class SecurityConfig {
 
 	private void permitHealthCheckApiUri(HttpSecurity http) throws Exception {
 		http.authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-				.requestMatchers(new AntPathRequestMatcher("/actuator/health")).permitAll());
+			.requestMatchers(new AntPathRequestMatcher("/actuator/health")).permitAll());
 	}
 }
