@@ -82,8 +82,17 @@ echo "----------------------------------------------------------------------"
 
 # nginx switching
 echo "> nginx 포트 스위칭"
+
+# nginx가 실행 중인지 확인
+if ! pgrep -x "nginx" > /dev/null
+then
+    echo "nginx가 실행 중이지 않습니다. Nginx를 시작합니다."
+    sudo systemctl start nginx
+fi
+
+# 서비스 URL 업데이트 및 Nginx 리로드
 echo "set \$service_url http://127.0.0.1:${green_port};" | sudo tee ${nginx_config_path}/conf.d/service-url.inc
-sudo nginx -s reload
+sudo nginx -t && sudo nginx -s reload
 
 sleep 1
 
