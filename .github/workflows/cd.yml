@@ -33,13 +33,11 @@ jobs:
           password: ${{ secrets.DOCKERHUB_LOGIN_ACCESSTOKEN }}
 
       - name: docker image 빌드 및 푸시
-        env:
-          SECRET_MANAGER_TOKEN: ${{ secrets.SECRET_MANAGER_TOKEN }}
-          SECRET_MANAGER_WORKSPACE: ${{ secrets.SECRET_MANAGER_WORKSPACE_ID }}
+        #        env:
+        #          SECRET_MANAGER_TOKEN: ${{ secrets.SECRET_MANAGER_TOKEN }}
+        #          SECRET_MANAGER_WORKSPACE: ${{ secrets.SECRET_MANAGER_WORKSPACE_ID }}
         run: |
-          docker build --platform linux/amd64 -t histour/histour -f Dockerfile-prod \
-            --build-arg SECRET_MANAGER_TOKEN=${SECRET_MANAGER_TOKEN} \
-            --build-arg SECRET_MANAGER_WORKSPACE=${SECRET_MANAGER_WORKSPACE} .
+          docker build --platform linux/amd64 -t histour/histour -f Dockerfile-prod .
           docker push histour/histour
 
   deploy-cd:
