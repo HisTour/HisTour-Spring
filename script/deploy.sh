@@ -46,7 +46,7 @@ if [ "$(docker ps -a -q -f name=${server_name}-${green_port})" ]; then
 fi
 docker run -d --name ${server_name}-${green_port} -p ${green_port}:8080 \
   -e SECRET_MANAGER_TOKEN=${SECRET_MANAGER_TOKEN} \
-  -e SECRET_MANAGER_WORKSPACE=${SECRET_MANAGER_WORKSPACE} \
+  -e SECRET_MANAGER_WORKSPACE_ID=${SECRET_MANAGER_WORKSPACE_ID} \
   -e TZ=Asia/Seoul histour/${server_name}
 echo "----------------------------------------------------------------------"
 
