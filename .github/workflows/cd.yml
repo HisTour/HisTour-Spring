@@ -50,6 +50,12 @@ jobs:
           key: ${{ secrets.RELEASE_SERVER_KEY }}
           script: |
             cd ~
+            
+            # deploy.sh 파일 업로드
+            cat > deploy.sh << 'EOF'
+            $(cat ./script/deploy.sh)
+            EOF
+            chmod +x deploy.sh
 
             # .env 파일이 이미 존재하고 필요한 항목이 있는지 확인
             if ! grep -q "SECRET_MANAGER_TOKEN=" .env; then
