@@ -37,7 +37,9 @@ jobs:
           SECRET_MANAGER_TOKEN: ${{ secrets.SECRET_MANAGER_TOKEN }}
           SECRET_MANAGER_WORKSPACE: ${{ secrets.SECRET_MANAGER_WORKSPACE_ID }}
         run: |
-          docker build --platform linux/amd64 -t histour/histour -f Dockerfile-prod .
+          docker build --platform linux/amd64 -t histour/histour -f Dockerfile-prod \
+            --build-arg SECRET_MANAGER_TOKEN=${SECRET_MANAGER_TOKEN} \
+            --build-arg SECRET_MANAGER_WORKSPACE=${SECRET_MANAGER_WORKSPACE} .
           docker push histour/histour
 
   deploy-cd:
