@@ -56,6 +56,7 @@ for retry_count in {1..15}
 do
     echo "> 서버 상태 체크"
     echo "> curl -s http://localhost:${green_port}${web_health_check_url}"
+
 		# http://localhost:{그린포트}{health check 주소} -> nginx
     response=$(curl -s http://localhost:${green_port}${web_health_check_url})
     up_count=$(echo $response | grep 'UP' | wc -l)
@@ -71,7 +72,7 @@ do
     if [ $retry_count -eq 15 ]
 		then
         echo "> 서버 실행 실패"
-#        docker rm -f ${server_name}-${green_port}
+        docker rm -f ${server_name}-${green_port}
 
         exit 1
     fi
