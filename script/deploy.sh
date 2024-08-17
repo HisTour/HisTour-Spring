@@ -6,12 +6,10 @@ all_port=("8080" "8081")
 available_port=()
 server_name=histour
 
-# 실행 중인 컨테이너 이름 확인
-docker_ps_output=$(docker ps --format "{{.Names}}" | grep "$server_name")
-echo "> docker_ps_output: $docker_ps_output"
+docker_ps_output=$(docker ps | grep $server_name)
+echo "> docker_ps_output-$server_name: $docker_ps_output"
 
-# 포트를 추출하는 방법 수정
-running_container_name=$(echo "$docker_ps_output" | grep "$server_name")
+running_container_name=$(echo "$docker_ps_output" | awk '{print $NF}')
 blue_port=$(echo "$running_container_name" | awk -F'-' '{print $NF}')
 echo "> running_container_name: $running_container_name"
 echo "> blue_port: $blue_port"
