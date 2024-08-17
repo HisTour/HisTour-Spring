@@ -6,10 +6,12 @@ all_port=("8080" "8081")
 available_port=()
 server_name=histour
 
-docker_ps_output=$(docker ps | grep $server_name)
+# 실행 중인 컨테이너 이름 확인
+docker_ps_output=$(docker ps --format "{{.Names}}" | grep "$server_name")
 echo "> docker_ps_output: $docker_ps_output"
 
-running_container_name=$(echo "$docker_ps_output" | awk '{print $NF}')
+# 포트를 추출하는 방법 수정
+running_container_name=$(echo "$docker_ps_output" | grep "$server_name")
 blue_port=$(echo "$running_container_name" | awk -F'-' '{print $NF}')
 echo "> running_container_name: $running_container_name"
 echo "> blue_port: $blue_port"
@@ -98,6 +100,9 @@ fi
 # 서비스 URL 업데이트 및 Nginx 리로드
 echo "set \$service_url http://127.0.0.1:${green_port};" | sudo tee ${nginx_config_path}/conf.d/service-url.inc
 sudo nginx -t && sudo nginx -s reload
+
+# 모든 트래픽을 green_port로 리다이렉트
+#curl -X POST -d "url=http://127.0.0.1:${green_port}" http://localhost:80
 
 sleep 1
 
