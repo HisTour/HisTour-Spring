@@ -52,7 +52,7 @@ jobs:
             cd ~
             
             # deploy.sh 파일 다운로드
-            wget https://raw.githubusercontent.com/HisTour/HisTour-Spring/main/script/deploy.sh -O deploy.sh
+            wget https://raw.githubusercontent.com/HisTour/HisTour-Spring/develop/script/deploy.sh -O deploy.sh
 
             # 실행 권한 부여
             chmod +x deploy.sh
