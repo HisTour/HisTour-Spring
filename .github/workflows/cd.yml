@@ -42,7 +42,7 @@ jobs:
     runs-on: ubuntu-20.04
 
     steps:
-      - name: 도커 컨테이너 실행 및 .env 파일 생성
+      - name: SSH로 서버 접속
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.RELEASE_SERVER_IP }}
@@ -50,20 +50,24 @@ jobs:
           key: ${{ secrets.RELEASE_SERVER_KEY }}
           script: |
             cd ~
-            
-            # deploy.sh 파일 다운로드
-            wget https://raw.githubusercontent.com/HisTour/HisTour-Spring/develop/script/deploy.sh -O deploy.sh
 
-            # 실행 권한 부여
-            chmod +x deploy.sh
+      - name: deploy.sh 파일 다운로드
+        run: |
+          wget https://raw.githubusercontent.com/HisTour/HisTour-Spring/develop/script/deploy.sh -O deploy.sh
 
-            # .env 파일이 이미 존재하고 필요한 항목이 있는지 확인
-            if ! grep -q "SECRET_MANAGER_TOKEN=" .env; then
-              echo "SECRET_MANAGER_TOKEN=${{ secrets.SECRET_MANAGER_TOKEN }}" >> .env
-            fi
-            if ! grep -q "SECRET_MANAGER_WORKSPACE_ID=" .env; then
-              echo "SECRET_MANAGER_WORKSPACE_ID=${{ secrets.SECRET_MANAGER_WORKSPACE_ID }}" >> .env
-            fi
+      - name: deploy.sh 파일에 실행 권한 부여
+        run: |
+          chmod +x deploy.sh
 
-            # 배포 스크립트 실행
-            sudo ./deploy.sh
+      - name: .env 파일 추가
+        run: |
+          if ! grep -q "SECRET_MANAGER_TOKEN=" .env; then
+            echo "SECRET_MANAGER_TOKEN=${{ secrets.SECRET_MANAGER_TOKEN }}" >> .env
+          fi
+          if ! grep -q "SECRET_MANAGER_WORKSPACE_ID=" .env; then
+            echo "SECRET_MANAGER_WORKSPACE_ID=${{ secrets.SECRET_MANAGER_WORKSPACE_ID }}" >> .env
+          fi
+
+      - name: 배포 스크립트 실행
+        run: |
+          sudo ./deploy.sh
