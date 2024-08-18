@@ -6,10 +6,10 @@ all_port=("8080" "8081")
 available_port=()
 server_name=histour
 
-echo "docker test"
+echo "sudo docker test"
 sudo docker ps
 
-docker_ps_output=$(docker ps | grep $server_name)
+docker_ps_output=$(sudo docker ps | grep $server_name)
 echo "> docker_ps_output-$server_name: $docker_ps_output"
 
 running_container_name=$(echo "$docker_ps_output" | awk '{print $NF}')
