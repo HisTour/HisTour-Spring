@@ -7,7 +7,7 @@ available_port=()
 server_name=histour
 
 echo "sudo docker test"
-sudo docker ps
+sudo docker ps -a
 
 docker_ps_output=$(sudo docker ps | grep $server_name)
 echo "> docker_ps_output-$server_name: $docker_ps_output"
