@@ -99,7 +99,7 @@ sleep 1
 
 echo "----------------------------------------------------------------------"
 # nginx를 통해서 서버 접근 가능한지 확인
-response=$(curl -s http://localhost${web_health_check_url})
+response=$(curl -s http://localhost:${green_port}${web_health_check_url})
 up_count=$(echo $response | grep 'UP' | wc -l)
 if [ $up_count -ge 1 ]
 then
