@@ -9,6 +9,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: SSH로 서버 접속
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.RELEASE_SERVER_IP }}
+          username: ${{ secrets.RELEASE_SERVER_USER }}
+          key: ${{ secrets.RELEASE_SERVER_KEY }}
+          script: |
+            cd ~
+
       - name: Install Docker
         run: |
           sudo apt-get update
