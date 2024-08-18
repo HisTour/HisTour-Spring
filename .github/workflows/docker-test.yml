@@ -18,6 +18,10 @@ jobs:
           script: |
             cd ~
 
+      - name: Check ll
+        run: |
+          ll
+
       - name: Check Docker status
         run: |
           sudo systemctl status docker
