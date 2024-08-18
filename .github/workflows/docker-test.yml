@@ -20,7 +20,7 @@ jobs:
 
       - name: Check ll
         run: |
-          ll
+          ls -l
 
       - name: Check Docker status
         run: |
