@@ -17,7 +17,7 @@ jobs:
           key: ${{ secrets.RELEASE_SERVER_KEY }}
           script: |
             cd ~
-            ls -l
+            docker ps
 
       - name: Check ll
         run: |
@@ -28,6 +28,3 @@ jobs:
           sudo systemctl status docker
           sudo docker --debug ps
 
-      - name: Verify running containers
-        run: |
-          sudo docker ps -a
