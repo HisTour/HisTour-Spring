@@ -18,16 +18,6 @@ jobs:
           script: |
             cd ~
 
-      - name: Install Docker
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker.io
-
-      - name: Start Docker
-        run: |
-          sudo systemctl start docker
-          sudo systemctl enable docker
-
       - name: Check Docker status
         run: |
           sudo systemctl status docker
