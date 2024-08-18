@@ -95,8 +95,9 @@ fi
 echo "set \$service_url http://127.0.0.1:${green_port};" | sudo tee ${nginx_config_path}/conf.d/service-url.inc
 sudo nginx -t && sudo nginx -s reload
 
-# 모든 트래픽을 green_port로 리다이렉트
-#curl -X POST -d "url=http://127.0.0.1:${green_port}" http://localhost:80
+## 모든 트래픽을 green_port로 리다이렉트
+#sudo sed -i "s/proxy_pass http:\/\/127.0.0.1:${blue_port};/proxy_pass http:\/\/127.0.0.1:${green_port};/" ${nginx_config_path}/nginx.conf
+#sudo nginx -t
 
 sleep 1
 
