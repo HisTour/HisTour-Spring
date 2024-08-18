@@ -6,16 +6,9 @@ all_port=("8080" "8081")
 available_port=()
 server_name=histour
 
-echo "sudo docker test"
-sudo docker ps -a
-
 docker_ps_output=$(sudo docker ps | grep $server_name)
-echo "> docker_ps_output-$server_name: $docker_ps_output"
-
 running_container_name=$(echo "$docker_ps_output" | awk '{print $NF}')
 blue_port=$(echo "$running_container_name" | awk -F'-' '{print $NF}')
-echo "> running_container_name: $running_container_name"
-echo "> blue_port: $blue_port"
 
 web_health_check_url=/actuator/health
 
