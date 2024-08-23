@@ -14,37 +14,25 @@ import trible.histour.application.domain.mission.MissionType;
 @NoArgsConstructor
 public class MissionEntity extends BaseEntity {
 	@Column(nullable = false)
-	@Enumerated(EnumType.STRING)
-	private MissionType missionType;
-	@Column(nullable = false)
-	private String content;
-	@Column(nullable = false)
 	private long placeId;
+	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	private String storyType;
+	private MissionType type;
 	@Column(nullable = false)
-	private String missionHint;
-	@Column(nullable = false)
-	private String missionAnswer;
+	private String name;
 
 	public MissionEntity(Mission mission) {
-		this.missionType = mission.getMissionType();
-		this.content = mission.getContent();
 		this.placeId = mission.getPlaceId();
-		this.storyType = mission.getStoryType();
-		this.missionHint = mission.getMissionHint();
-		this.missionAnswer = mission.getMissionAnswer();
+		this.type = mission.getType();
+		this.name = mission.getName();
 	}
 
 	public Mission toDomain() {
 		return Mission.builder()
-				.id(getId())
-				.missionType(missionType)
-				.content(content)
-				.placeId(placeId)
-				.storyType(storyType)
-				.missionHint(missionHint)
-				.missionAnswer(missionAnswer)
-				.build();
+			.id(getId())
+			.placeId(placeId)
+			.type(type)
+			.name(name)
+			.build();
 	}
 }

@@ -8,11 +8,9 @@ import lombok.Getter;
 @Getter
 public class Mission {
 	Long id;
-	@NotNull
-	MissionType missionType;
-	@NotNull String content;
 	long placeId;
-	String storyType;
-	String missionHint;
-	String missionAnswer;
+	@NotNull
+	MissionType type;
+	@NotNull
+	String name;
 }
