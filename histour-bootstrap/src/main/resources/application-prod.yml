@@ -4,6 +4,7 @@ spring:
       - classpath:database-config/application-prod.yml
       - classpath:application-config/application-prod.yml
       - classpath:discord-config/application-prod.yml
+      - classpath:oauth-config/application-prod.yml
     activate:
       on-profile: prod
 server:

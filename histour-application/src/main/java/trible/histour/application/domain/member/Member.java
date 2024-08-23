@@ -17,4 +17,8 @@ public class Member {
 	String username;
 	String refreshToken;
 	Long characterId;
+
+	public void updateRefreshToken(String refreshToken) {
+		this.refreshToken = refreshToken;
+	}
 }
