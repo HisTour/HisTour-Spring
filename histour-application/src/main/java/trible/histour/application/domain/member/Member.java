@@ -10,11 +10,13 @@ import lombok.Getter;
 @Getter
 public class Member {
 	UUID memberUid;
-	@NotNull SocialType socialType;
-	@NotNull String socialId;
+	@NotNull
+	SocialType socialType;
+	@NotNull
+	String socialId;
 	String profileImageUrl;
-	@NotNull String username;
+	@NotNull
+	String username;
 	String refreshToken;
-
 	Long characterId;
 }
