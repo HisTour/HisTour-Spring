@@ -2,6 +2,8 @@ package trible.histour.input.http.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +25,10 @@ public class AuthApi implements AuthApiDocs {
 	@ResponseStatus(HttpStatus.CREATED)
 	@PostMapping
 	@Override
-	public SuccessResponse<SignInResponse> signIn(String socialAccessToken, SignInRequest request) {
+	public SuccessResponse<SignInResponse> signIn(
+		@RequestHeader("Authorization") String socialAccessToken,
+		@RequestBody SignInRequest request
+	) {
 		val response = authUseCase.signIn(socialAccessToken, request);
 		return SuccessResponse.of(response);
 	}
