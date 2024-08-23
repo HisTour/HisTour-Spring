@@ -1,5 +1,8 @@
 package trible.histour.application.domain.membermission;
 
+import java.util.UUID;
+
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -7,8 +10,9 @@ import lombok.Getter;
 @Getter
 public class MemberMission {
 	Long id;
-	long memberId;
+	@NotNull
+	UUID memberUid;
 	long placeId;
-	String storyType;
-	long missionId;
+	@NotNull
+	MissionState state;
 }
