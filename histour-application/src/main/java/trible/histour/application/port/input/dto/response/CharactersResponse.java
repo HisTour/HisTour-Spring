@@ -24,16 +24,13 @@ public record CharactersResponse(
 		@Schema(description = "캐릭터 이름", example = "왕도깨비")
 		String name,
 		@Schema(description = "캐릭터 설명", example = "예로부터 왕의 옷을 입은 도깨비는 ...더보기")
-		String description,
-		@Schema(description = "캐릭터 이미지 url", example = "https://test")
-		String imageUrl
+		String description
 	) {
 		private static CharacterResponse from(Character character) {
 			return CharacterResponse.builder()
 				.id(character.id())
 				.name(character.name())
 				.description(character.description())
-				.imageUrl(character.imageUrl())
 				.build();
 		}
 	}
