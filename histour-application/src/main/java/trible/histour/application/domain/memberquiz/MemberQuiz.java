@@ -1,7 +1,5 @@
 package trible.histour.application.domain.memberquiz;
 
-import java.util.UUID;
-
 import lombok.Builder;
 import lombok.Getter;
 
@@ -9,6 +7,6 @@ import lombok.Getter;
 @Getter
 public class MemberQuiz {
 	Long id;
-	UUID memberUid;
+	long memberId;
 	long quizId;
 }

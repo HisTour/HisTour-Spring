@@ -1,7 +1,5 @@
 package trible.histour.output.postgresql.persistence.entity;
 
-import java.util.UUID;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
@@ -13,19 +11,19 @@ import trible.histour.application.domain.memberquiz.MemberQuiz;
 @NoArgsConstructor
 public class MemberQuizEntity extends BaseEntity {
 	@Column(nullable = false)
-	private UUID memberUid;
+	private long memberId;
 	@Column(nullable = false)
 	private long quizId;
 
 	public MemberQuizEntity(MemberQuiz memberQuiz) {
-		this.memberUid = memberQuiz.getMemberUid();
+		this.memberId = memberQuiz.getMemberId();
 		this.quizId = memberQuiz.getQuizId();
 	}
 
 	public MemberQuiz toDomain() {
 		return MemberQuiz.builder()
 			.id(getId())
-			.memberUid(memberUid)
+			.memberId(memberId)
 			.quizId(quizId)
 			.build();
 	}

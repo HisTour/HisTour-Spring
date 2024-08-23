@@ -1,7 +1,5 @@
 package trible.histour.output.postgresql.persistence.entity;
 
-import java.util.UUID;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -15,8 +13,6 @@ import trible.histour.application.domain.member.SocialType;
 @Table(name = "member", schema = "histour")
 @NoArgsConstructor
 public class MemberEntity extends BaseEntity {
-	@Column(nullable = false, unique = true)
-	private UUID memberUid;
 	@Column(nullable = false)
 	@Enumerated(value = EnumType.STRING)
 	private SocialType socialType;
@@ -29,7 +25,6 @@ public class MemberEntity extends BaseEntity {
 	private Long characterId;
 
 	public MemberEntity(Member member) {
-		this.memberUid = member.getMemberUid();
 		this.socialType = member.getSocialType();
 		this.socialId = member.getSocialId();
 		this.profileImageUrl = member.getProfileImageUrl();
@@ -40,13 +35,13 @@ public class MemberEntity extends BaseEntity {
 
 	public Member toDomain() {
 		return Member.builder()
-				.memberUid(memberUid)
-				.socialType(socialType)
-				.socialId(socialId)
-				.profileImageUrl(profileImageUrl)
-				.username(username)
-				.refreshToken(refreshToken)
-				.characterId(characterId)
-				.build();
+			.id(this.getId())
+			.socialType(socialType)
+			.socialId(socialId)
+			.profileImageUrl(profileImageUrl)
+			.username(username)
+			.refreshToken(refreshToken)
+			.characterId(characterId)
+			.build();
 	}
 }

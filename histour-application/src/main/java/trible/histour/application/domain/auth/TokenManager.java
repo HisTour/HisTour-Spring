@@ -1,7 +1,6 @@
 package trible.histour.application.domain.auth;
 
 import java.util.Date;
-import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
@@ -18,20 +17,20 @@ import lombok.val;
 public class TokenManager {
 	private final SecretKeyFactory secretKeyFactory;
 
-	public String generateToken(UUID memberUid, Long tokenExpirationTime) {
-		val authentication = HistourAuthentication.create(memberUid);
+	public String generateToken(long memberId, Long tokenExpirationTime) {
+		val authentication = HistourAuthentication.create(memberId);
 		val now = new Date();
 		val claims = Jwts.claims()
-				.setIssuedAt(now)
-				.setExpiration(new Date(now.getTime() + tokenExpirationTime));
+			.setIssuedAt(now)
+			.setExpiration(new Date(now.getTime() + tokenExpirationTime));
 
-		claims.put("memberUid", authentication.getPrincipal());
+		claims.put("memberId", authentication.getPrincipal());
 
 		return Jwts.builder()
-				.setHeaderParam(Header.TYPE, Header.JWT_TYPE)
-				.setClaims(claims)
-				.signWith(secretKeyFactory.create())
-				.compact();
+			.setHeaderParam(Header.TYPE, Header.JWT_TYPE)
+			.setClaims(claims)
+			.signWith(secretKeyFactory.create())
+			.compact();
 	}
 
 	public boolean validateToken(String token) {
@@ -44,16 +43,16 @@ public class TokenManager {
 		return true;
 	}
 
-	public UUID getMemberUid(String token) {
+	public long getMemberId(String token) {
 		val claims = getBody(token);
-		return UUID.fromString(claims.get("memberUid").toString());
+		return Long.parseLong(claims.get("memberId").toString());
 	}
 
 	private Claims getBody(String token) {
 		return Jwts.parserBuilder()
-				.setSigningKey(secretKeyFactory.create())
-				.build()
-				.parseClaimsJws(token)
-				.getBody();
+			.setSigningKey(secretKeyFactory.create())
+			.build()
+			.parseClaimsJws(token)
+			.getBody();
 	}
 }

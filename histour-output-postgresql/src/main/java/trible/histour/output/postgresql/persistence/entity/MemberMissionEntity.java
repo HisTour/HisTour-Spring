@@ -1,7 +1,5 @@
 package trible.histour.output.postgresql.persistence.entity;
 
-import java.util.UUID;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -16,7 +14,7 @@ import trible.histour.application.domain.membermission.MissionState;
 @NoArgsConstructor
 public class MemberMissionEntity extends BaseEntity {
 	@Column(nullable = false)
-	private UUID memberUid;
+	private long memberId;
 	@Column(nullable = false)
 	private long missionId;
 	@Enumerated(EnumType.STRING)
@@ -24,7 +22,7 @@ public class MemberMissionEntity extends BaseEntity {
 	private MissionState state;
 
 	public MemberMissionEntity(MemberMission memberMission) {
-		this.memberUid = memberMission.getMemberUid();
+		this.memberId = memberMission.getMemberId();
 		this.missionId = memberMission.getPlaceId();
 		this.state = memberMission.getState();
 	}
@@ -32,7 +30,7 @@ public class MemberMissionEntity extends BaseEntity {
 	public MemberMission toDomain() {
 		return MemberMission.builder()
 			.id(getId())
-			.memberUid(memberUid)
+			.memberId(memberId)
 			.placeId(missionId)
 			.state(state)
 			.build();
