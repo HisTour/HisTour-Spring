@@ -1,4 +1,4 @@
-package com.piikii.output.web.tmap.oauth.adapter.dto.response.kakao;
+package trible.histour.output.web.oauth.adapter.response.kakao;
 
 import java.time.LocalDateTime;
 

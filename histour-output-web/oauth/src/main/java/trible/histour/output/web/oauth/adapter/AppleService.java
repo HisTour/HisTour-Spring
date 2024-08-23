@@ -1,4 +1,4 @@
-package com.piikii.output.web.tmap.oauth.adapter;
+package trible.histour.output.web.oauth.adapter;
 
 import java.math.BigInteger;
 import java.security.KeyFactory;
@@ -17,9 +17,6 @@ import org.springframework.web.client.RestClient;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.piikii.output.web.tmap.oauth.adapter.dto.response.apple.AppleKey;
-import com.piikii.output.web.tmap.oauth.adapter.dto.response.apple.AppleKeysResponse;
-import com.piikii.output.web.tmap.oauth.adapter.dto.response.apple.DecodedAppleKey;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -29,6 +26,9 @@ import trible.histour.application.domain.auth.SocialInfo;
 import trible.histour.application.domain.member.SocialType;
 import trible.histour.common.exception.ExceptionCode;
 import trible.histour.common.exception.HistourException;
+import trible.histour.output.web.oauth.adapter.response.apple.AppleKey;
+import trible.histour.output.web.oauth.adapter.response.apple.AppleKeysResponse;
+import trible.histour.output.web.oauth.adapter.response.apple.DecodedAppleKey;
 
 @Component
 @RequiredArgsConstructor

@@ -1,4 +1,4 @@
-package com.piikii.output.web.tmap.oauth.adapter.dto.response.apple;
+package trible.histour.output.web.oauth.adapter.response.apple;
 
 import lombok.Builder;
 

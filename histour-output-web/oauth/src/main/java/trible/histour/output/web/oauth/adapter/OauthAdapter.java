@@ -1,4 +1,4 @@
-package com.piikii.output.web.tmap.oauth.adapter;
+package trible.histour.output.web.oauth.adapter;
 
 import java.util.UUID;
 
