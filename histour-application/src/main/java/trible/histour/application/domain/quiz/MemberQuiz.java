@@ -1,4 +1,4 @@
-package trible.histour.application.domain.memberquiz;
+package trible.histour.application.domain.quiz;
 
 import lombok.Builder;
 import lombok.Getter;

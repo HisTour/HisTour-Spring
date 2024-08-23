@@ -6,8 +6,8 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import lombok.NoArgsConstructor;
-import trible.histour.application.domain.membermission.MemberMission;
-import trible.histour.application.domain.membermission.MissionState;
+import trible.histour.application.domain.mission.MemberMission;
+import trible.histour.application.domain.mission.MissionState;
 
 @Entity
 @Table(name = "member_mission", schema = "histour")

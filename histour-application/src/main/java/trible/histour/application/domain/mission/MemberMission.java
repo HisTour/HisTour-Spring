@@ -1,4 +1,4 @@
-package trible.histour.application.domain.membermission;
+package trible.histour.application.domain.mission;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
