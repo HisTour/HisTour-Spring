@@ -8,7 +8,8 @@ import lombok.Getter;
 @Getter
 public class Place {
 	Long id;
-	@NotNull String name;
-	@NotNull String description;
-	@NotNull RegionType regionType;
+	@NotNull
+	String name;
+	@NotNull
+	String description;
 }
