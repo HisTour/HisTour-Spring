@@ -12,4 +12,5 @@ public class Place {
 	String name;
 	@NotNull
 	String description;
+	int requiredMissionCount;
 }

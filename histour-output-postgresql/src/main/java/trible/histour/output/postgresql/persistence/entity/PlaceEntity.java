@@ -14,10 +14,13 @@ public class PlaceEntity extends BaseEntity {
 	private String name;
 	@Column(nullable = false)
 	private String description;
+	@Column(nullable = false)
+	private int requiredMissionCount;
 
 	public PlaceEntity(Place place) {
 		this.name = place.getName();
 		this.description = place.getDescription();
+		this.requiredMissionCount = place.getRequiredMissionCount();
 	}
 
 	public Place toDomain() {
@@ -25,6 +28,7 @@ public class PlaceEntity extends BaseEntity {
 			.id(getId())
 			.name(name)
 			.description(description)
+			.requiredMissionCount(requiredMissionCount)
 			.build();
 	}
 }
