@@ -1,0 +1,4 @@
+oauth:
+  url:
+    kakao: https://kapi.kakao.com/v2/user/me
+    apple: https://appleid.apple.com/auth/keys

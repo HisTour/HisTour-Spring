@@ -53,6 +53,8 @@ public class SecurityConfig {
 					.permitAll()
 					.requestMatchers(new AntPathRequestMatcher("/api/v1/characters", "GET"))
 					.permitAll()
+					.requestMatchers(new AntPathRequestMatcher("/api/v1/auth", "POST"))
+					.permitAll()
 					.anyRequest()
 					.authenticated())
 			.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);

@@ -12,18 +12,18 @@ public class HistourAuthentication extends UsernamePasswordAuthenticationToken {
 
 	@Builder(access = AccessLevel.PRIVATE)
 	public HistourAuthentication(
-			Object principal,
-			Object credentials,
-			Collection<? extends GrantedAuthority> authorities
+		Object principal,
+		Object credentials,
+		Collection<? extends GrantedAuthority> authorities
 	) {
 		super(principal, credentials, authorities);
 	}
 
 	public static <T> HistourAuthentication create(T principal) {
 		return HistourAuthentication.builder()
-				.principal(principal)
-				.credentials(null)
-				.authorities(null)
-				.build();
+			.principal(principal)
+			.credentials(null)
+			.authorities(null)
+			.build();
 	}
 }
