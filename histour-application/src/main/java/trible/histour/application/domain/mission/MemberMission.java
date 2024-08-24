@@ -1,4 +1,4 @@
-package trible.histour.application.domain.membermission;
+package trible.histour.application.domain.mission;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
@@ -8,8 +8,8 @@ import lombok.Getter;
 @Getter
 public class MemberMission {
 	Long id;
-	@NotNull MissionState missionState;
 	long memberId;
-	long missionId;
 	long placeId;
+	@NotNull
+	MissionState state;
 }

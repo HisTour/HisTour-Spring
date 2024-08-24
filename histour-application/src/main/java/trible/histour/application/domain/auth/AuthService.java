@@ -1,26 +1,42 @@
 package trible.histour.application.domain.auth;
 
-import java.util.UUID;
-
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
+import lombok.val;
+import trible.histour.application.port.input.AuthUseCase;
+import trible.histour.application.port.input.dto.request.auth.SignInRequest;
+import trible.histour.application.port.input.dto.response.auth.SignInResponse;
+import trible.histour.application.port.output.persistence.MemberPort;
+import trible.histour.application.port.output.web.OauthPort;
 
 @Service
 @RequiredArgsConstructor
-public class AuthService {
+@Transactional(readOnly = true)
+public class AuthService implements AuthUseCase {
+	private final MemberPort memberPort;
+	private final OauthPort oauthPort;
 	private final TokenManager tokenManager;
 
 	private static final Long ACCESS_TOKEN_EXPIRATION_TIME = 60 * 60 * 1000 * 2 * 12 * 1000000L;
 	private static final Long REFRESH_TOKEN_EXPIRATION_TIME = 60 * 60 * 1000 * 24 * 14L;
 
-		//TODO: sign-in 로직에 포함
-	public String generateAccessToken(UUID memberUid) {
-		return tokenManager.generateToken(memberUid, ACCESS_TOKEN_EXPIRATION_TIME);
+	@Transactional
+	@Override
+	public SignInResponse signIn(String socialAccessToken, SignInRequest request) {
+		val signedSocial = oauthPort.login(request.type(), socialAccessToken);
+		val signedMember = memberPort.signInBySocial(signedSocial);
+		signedMember.updateRefreshToken(generateRefreshToken(signedMember.getId()));
+		memberPort.update(signedMember);
+		return SignInResponse.of(signedMember, generateAccessToken(signedMember.getId()));
 	}
 
-	//TODO: 토큰 재발급 로직에 포함
-	public String generateRefreshToken(UUID memberUid) {
-		return tokenManager.generateToken(memberUid, REFRESH_TOKEN_EXPIRATION_TIME);
+	private String generateAccessToken(long memberId) {
+		return tokenManager.generateToken(memberId, ACCESS_TOKEN_EXPIRATION_TIME);
+	}
+
+	private String generateRefreshToken(long memberId) {
+		return tokenManager.generateToken(memberId, REFRESH_TOKEN_EXPIRATION_TIME);
 	}
 }

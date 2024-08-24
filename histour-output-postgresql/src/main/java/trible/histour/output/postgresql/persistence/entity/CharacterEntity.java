@@ -14,15 +14,12 @@ public class CharacterEntity extends BaseEntity {
 	private String name;
 	@Column(nullable = false, columnDefinition = "TEXT")
 	private String description;
-	@Column(nullable = false)
-	private String imageUrl;
 
 	public Character toDomain() {
 		return Character.builder()
 			.id(this.getId())
 			.name(this.name)
 			.description(this.description)
-			.imageUrl(this.imageUrl)
 			.build();
 	}
 }

@@ -1,7 +1,5 @@
 package trible.histour.application;
 
-import java.util.UUID;
-
 import javax.crypto.KeyGenerator;
 
 import org.assertj.core.api.Assertions;
@@ -39,14 +37,14 @@ class TokenManagerTest {
 	@DisplayName("토큰 정상 발급 및 유효성 검증")
 	void generateAndValidateToken() {
 		// given
-		val memberUid = UUID.randomUUID();
+		val memberId = 0L;
 		val expiredTime = 60 * 60 * 1000 * 2 * 12 * 1000000L;
 
 		// when
-		val token = tokenManager.generateToken(memberUid, expiredTime);
-		val validatedMemberUid = tokenManager.getMemberUid(token);
+		val token = tokenManager.generateToken(memberId, expiredTime);
+		val validatedMemberId = tokenManager.getMemberId(token);
 
 		// then
-		Assertions.assertThat(validatedMemberUid).isEqualTo(memberUid);
+		Assertions.assertThat(validatedMemberId).isEqualTo(memberId);
 	}
 }

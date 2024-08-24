@@ -28,14 +28,14 @@ public class HistourAuthenticationFilter extends OncePerRequestFilter {
 
 	@Override
 	protected void doFilterInternal(
-			@NonNull HttpServletRequest request,
-			@NonNull HttpServletResponse response,
-			@NonNull FilterChain filterChain
+		@NonNull HttpServletRequest request,
+		@NonNull HttpServletResponse response,
+		@NonNull FilterChain filterChain
 	) throws ServletException, IOException {
 		val token = getJwt(request);
 		if (isValidToken(token)) {
-			val memberUid = tokenManager.getMemberUid(token);
-			val authentication = HistourAuthentication.create(memberUid);
+			val memberId = tokenManager.getMemberId(token);
+			val authentication = HistourAuthentication.create(memberId);
 			authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 		}
@@ -45,8 +45,8 @@ public class HistourAuthenticationFilter extends OncePerRequestFilter {
 	private String getJwt(HttpServletRequest request) {
 		val bearerToken = request.getHeader(TOKEN_HEADER_NAME);
 		return (StringUtils.hasText(bearerToken) && bearerToken.startsWith(TOKEN_PREFIX))
-				? bearerToken.substring(TOKEN_PREFIX.length())
-				: null;
+			? bearerToken.substring(TOKEN_PREFIX.length())
+			: null;
 	}
 
 	private boolean isValidToken(String token) {

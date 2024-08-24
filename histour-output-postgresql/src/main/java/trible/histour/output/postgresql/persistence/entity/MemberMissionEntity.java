@@ -6,36 +6,33 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import lombok.NoArgsConstructor;
-import trible.histour.application.domain.membermission.MemberMission;
-import trible.histour.application.domain.membermission.MissionState;
+import trible.histour.application.domain.mission.MemberMission;
+import trible.histour.application.domain.mission.MissionState;
 
 @Entity
 @Table(name = "member_mission", schema = "histour")
 @NoArgsConstructor
 public class MemberMissionEntity extends BaseEntity {
 	@Column(nullable = false)
-	@Enumerated(EnumType.STRING)
-	private MissionState missionState;
-
-	@Column(nullable = false)
 	private long memberId;
 	@Column(nullable = false)
 	private long missionId;
+	@Enumerated(EnumType.STRING)
 	@Column(nullable = false)
-	private long placeId;
+	private MissionState state;
 
 	public MemberMissionEntity(MemberMission memberMission) {
-		this.missionState = memberMission.getMissionState();
 		this.memberId = memberMission.getMemberId();
-		this.missionId = memberMission.getMissionId();
-		this.placeId = memberMission.getPlaceId();
+		this.missionId = memberMission.getPlaceId();
+		this.state = memberMission.getState();
 	}
+
 	public MemberMission toDomain() {
 		return MemberMission.builder()
-				.id(getId())
-				.memberId(memberId)
-				.missionId(missionId)
-				.placeId(placeId)
-				.build();
+			.id(getId())
+			.memberId(memberId)
+			.placeId(missionId)
+			.state(state)
+			.build();
 	}
 }
