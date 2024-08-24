@@ -2,7 +2,7 @@ package trible.histour.input.http.controller.docs;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import trible.histour.application.port.input.dto.response.CharactersResponse;
+import trible.histour.application.port.input.dto.response.character.CharactersResponse;
 import trible.histour.input.http.controller.dto.response.SuccessResponse;
 
 @Tag(name = "Character", description = "캐릭터 관련 API")
