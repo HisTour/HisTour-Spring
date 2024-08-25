@@ -1,8 +1,5 @@
 package trible.histour.application.domain.quiz;
 
 public enum QuizType {
-	KEYWORD,
-	PHOTO,
-	VOICE,
-	BUTTON,
+	KEYWORD, PHOTO, VOICE
 }
