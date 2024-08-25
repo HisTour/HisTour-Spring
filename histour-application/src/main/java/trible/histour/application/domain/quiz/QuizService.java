@@ -14,7 +14,6 @@ import trible.histour.application.domain.mission.MissionType;
 import trible.histour.application.port.input.QuizUseCase;
 import trible.histour.application.port.input.dto.response.quiz.QuizzesResponse;
 import trible.histour.application.port.output.persistence.MemberMissionPort;
-import trible.histour.application.port.output.persistence.MemberQuizPort;
 import trible.histour.application.port.output.persistence.MissionPort;
 import trible.histour.application.port.output.persistence.PlacePort;
 import trible.histour.application.port.output.persistence.QuizPort;
@@ -29,7 +28,6 @@ public class QuizService implements QuizUseCase {
 	private final MissionPort missionPort;
 	private final PlacePort placePort;
 	private final MemberMissionPort memberMissionPort;
-	private final MemberQuizPort memberQuizPort;
 
 	@Transactional
 	@Override
@@ -46,9 +44,7 @@ public class QuizService implements QuizUseCase {
 			.orElseGet(() -> memberMissionPort.save(new MemberMission(memberId, missionId)));
 
 		val quizzes = quizPort.findAllByMissionId(missionId);
-		val quizIds = quizzes.stream().map(Quiz::getId).toList();
-		val memberQuizzes = memberQuizPort.findAllByMemberIdAndQuizIds(memberId, quizIds);
-		return QuizzesResponse.of(mission, quizzes, memberQuizzes.size());
+		return QuizzesResponse.of(mission, quizzes);
 	}
 
 	private void validMemberQuiz(

@@ -16,17 +16,14 @@ public record QuizzesResponse(
 	String missionName,
 	@Schema(description = "미션 타입", example = "NORMAL")
 	MissionType missionType,
-	@Schema(description = "수행한 퀴즈 개수", example = "0")
-	int clearedQuizCount,
 	@Schema(description = "퀴즈 정보 목록")
 	List<QuizResponse> quizzes
 ) {
 
-	public static QuizzesResponse of(Mission mission, List<Quiz> quizzes, int clearedQuizCount) {
+	public static QuizzesResponse of(Mission mission, List<Quiz> quizzes) {
 		return QuizzesResponse.builder()
 			.missionName(mission.getName())
 			.missionType(mission.getType())
-			.clearedQuizCount(clearedQuizCount)
 			.quizzes(quizzes.stream().map(QuizResponse::of).toList())
 			.build();
 	}
