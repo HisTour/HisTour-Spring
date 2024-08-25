@@ -1,5 +1,7 @@
 package trible.histour.input.http.controller;
 
+import java.security.Principal;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,8 +25,9 @@ public class QuizApi implements QuizApiDocs {
 	@ResponseStatus(HttpStatus.OK)
 	@GetMapping("/mission/{missionId}")
 	@Override
-	public SuccessResponse<QuizzesResponse> getQuizzes(@PathVariable long missionId) {
-		val response = quizUseCase.getQuizzes(missionId);
+	public SuccessResponse<QuizzesResponse> getQuizzes(Principal principal, @PathVariable long missionId) {
+		long memberId = Long.parseLong(principal.getName());
+		val response = quizUseCase.getQuizzes(memberId, missionId);
 		return SuccessResponse.of(response);
 	}
 }

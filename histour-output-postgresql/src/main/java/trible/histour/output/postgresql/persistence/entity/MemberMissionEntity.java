@@ -23,7 +23,7 @@ public class MemberMissionEntity extends BaseEntity {
 
 	public MemberMissionEntity(MemberMission memberMission) {
 		this.memberId = memberMission.getMemberId();
-		this.missionId = memberMission.getPlaceId();
+		this.missionId = memberMission.getMissionId();
 		this.state = memberMission.getState();
 	}
 
@@ -31,7 +31,7 @@ public class MemberMissionEntity extends BaseEntity {
 		return MemberMission.builder()
 			.id(getId())
 			.memberId(memberId)
-			.placeId(missionId)
+			.missionId(missionId)
 			.state(state)
 			.build();
 	}

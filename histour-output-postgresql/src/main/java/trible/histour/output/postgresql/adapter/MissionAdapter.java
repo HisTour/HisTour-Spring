@@ -1,5 +1,7 @@
 package trible.histour.output.postgresql.adapter;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,12 @@ public class MissionAdapter implements MissionPort {
 	@Override
 	public Mission findById(long missionId) {
 		return find(missionId).toDomain();
+	}
+
+	@Override
+	public List<Mission> findAllByPlaceId(long placeId) {
+		return missionRepository.findAllByPlaceId(placeId)
+			.stream().map(MissionEntity::toDomain).toList();
 	}
 
 	private MissionEntity find(long id) {
