@@ -1,13 +1,12 @@
 package trible.histour.application.domain.mission;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 @Builder
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Getter
 public class MemberMission {
 	Long id;
