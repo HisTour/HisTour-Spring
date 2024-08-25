@@ -33,6 +33,7 @@ public class MemberMissionEntity extends BaseEntity {
 			.memberId(memberId)
 			.missionId(missionId)
 			.state(state)
+			.createdAt(getCreatedAt())
 			.build();
 	}
 }
