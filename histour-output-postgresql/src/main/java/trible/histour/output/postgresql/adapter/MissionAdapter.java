@@ -28,6 +28,11 @@ public class MissionAdapter implements MissionPort {
 			.stream().map(MissionEntity::toDomain).toList();
 	}
 
+	@Override
+	public List<Mission> findAllByMissionIds(List<Long> missionIds) {
+		return missionRepository.findAllByIdIn(missionIds).stream().map(MissionEntity::toDomain).toList();
+	}
+
 	private MissionEntity find(long id) {
 		return missionRepository.findById(id)
 			.orElseThrow(() -> new HistourException(ExceptionCode.NOT_FOUND, "Mission ID: " + id));

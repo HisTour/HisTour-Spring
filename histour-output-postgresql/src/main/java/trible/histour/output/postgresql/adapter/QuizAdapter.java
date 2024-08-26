@@ -20,4 +20,10 @@ public class QuizAdapter implements QuizPort {
 		return quizRepository.findAllByMissionIdOrderBySequenceAsc(missionId)
 			.stream().map(QuizEntity::toDomain).toList();
 	}
+
+	@Override
+	public List<Quiz> findAllByMissionIds(List<Long> missionIds) {
+		return quizRepository.findAllByMissionIdIn(missionIds)
+			.stream().map(QuizEntity::toDomain).toList();
+	}
 }
