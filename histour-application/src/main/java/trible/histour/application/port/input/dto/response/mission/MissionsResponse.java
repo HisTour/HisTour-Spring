@@ -44,8 +44,8 @@ public record MissionsResponse(
 				MissionResponse.of(
 					mission,
 					memberMissionByMissionId.get(mission.getId()),
-					memberQuizzesByMissionId.get(mission.getId()).size(),
-					quizzesByMissionId.get(mission.getId()).size()))
+					memberQuizzesByMissionId.get(mission.getId()),
+					quizzesByMissionId.get(mission.getId())))
 			.toList();
 	}
 }
