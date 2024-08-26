@@ -8,4 +8,6 @@ import trible.histour.output.postgresql.persistence.entity.QuizEntity;
 
 public interface QuizRepository extends JpaRepository<QuizEntity, Long> {
 	List<QuizEntity> findAllByMissionIdOrderBySequenceAsc(long missionId);
+
+	List<QuizEntity> findAllByMissionIdIn(List<Long> missionIds);
 }

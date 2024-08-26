@@ -1,5 +1,7 @@
 package trible.histour.output.postgresql.adapter;
 
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
@@ -18,6 +20,11 @@ public class PlaceAdapter implements PlacePort {
 	@Override
 	public Place findById(long placeId) {
 		return find(placeId).toDomain();
+	}
+
+	@Override
+	public List<Place> findAll() {
+		return placeRepository.findAll().stream().map(PlaceEntity::toDomain).toList();
 	}
 
 	private PlaceEntity find(long id) {

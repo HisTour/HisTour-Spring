@@ -33,6 +33,11 @@ public class MemberAdapter implements MemberPort {
 		memberEntity.update(member);
 	}
 
+	@Override
+	public Member findById(long memberId) {
+		return find(memberId).toDomain();
+	}
+
 	private MemberEntity find(long id) {
 		return memberRepository.findById(id)
 			.orElseThrow(() -> new HistourException(ExceptionCode.NOT_FOUND, "MemberID: " + id));

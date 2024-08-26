@@ -27,4 +27,10 @@ public class MemberMissionAdapter implements MemberMissionPort {
 		val memberMissionEntity = new MemberMissionEntity(memberMission);
 		return memberMissionRepository.save(memberMissionEntity).toDomain();
 	}
+
+	@Override
+	public List<MemberMission> findAllByMemberId(long memberId) {
+		return memberMissionRepository.findAllByMemberId(memberId)
+			.stream().map(MemberMissionEntity::toDomain).toList();
+	}
 }

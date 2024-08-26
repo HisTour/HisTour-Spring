@@ -8,4 +8,6 @@ import trible.histour.output.postgresql.persistence.entity.MissionEntity;
 
 public interface MissionRepository extends JpaRepository<MissionEntity, Long> {
 	List<MissionEntity> findAllByPlaceId(long placeId);
+
+	List<MissionEntity> findAllByIdIn(List<Long> ids);
 }

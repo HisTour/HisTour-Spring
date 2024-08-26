@@ -7,4 +7,6 @@ public interface MemberPort {
 	Member signInBySocial(SocialInfo social);
 
 	void update(Member member);
+
+	Member findById(long memberId);
 }
