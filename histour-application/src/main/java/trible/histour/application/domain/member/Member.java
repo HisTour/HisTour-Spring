@@ -21,4 +21,8 @@ public class Member {
 	public void updateRefreshToken(String refreshToken) {
 		this.refreshToken = refreshToken;
 	}
+
+	public void updateCharacter(long characterId) {
+		this.characterId = characterId;
+	}
 }

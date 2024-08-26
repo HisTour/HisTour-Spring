@@ -12,8 +12,6 @@ public class Quiz {
 	QuizType type;
 	long missionId;
 	@NotNull
-	String content;
-	@NotNull
 	String hint;
 	@NotNull
 	String answer;

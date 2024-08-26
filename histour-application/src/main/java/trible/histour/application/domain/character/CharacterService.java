@@ -6,7 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import trible.histour.application.port.input.CharacterUseCase;
-import trible.histour.application.port.input.dto.response.CharactersResponse;
+import trible.histour.application.port.input.dto.response.character.CharactersResponse;
 import trible.histour.application.port.output.persistence.CharacterPort;
 
 @Service

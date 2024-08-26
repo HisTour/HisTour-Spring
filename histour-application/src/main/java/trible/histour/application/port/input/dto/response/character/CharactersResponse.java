@@ -1,4 +1,4 @@
-package trible.histour.application.port.input.dto.response;
+package trible.histour.application.port.input.dto.response.character;
 
 import java.util.List;
 

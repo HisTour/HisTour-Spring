@@ -19,8 +19,6 @@ public class QuizEntity extends BaseEntity {
 	@Column(nullable = false)
 	private long missionId;
 	@Column(nullable = false)
-	private String content;
-	@Column(nullable = false)
 	private String hint;
 	@Column(nullable = false)
 	private String answer;
@@ -31,7 +29,6 @@ public class QuizEntity extends BaseEntity {
 
 	public QuizEntity(Quiz quiz) {
 		this.type = quiz.getType();
-		this.content = quiz.getContent();
 		this.missionId = quiz.getMissionId();
 		this.hint = quiz.getHint();
 		this.answer = quiz.getAnswer();
@@ -43,7 +40,6 @@ public class QuizEntity extends BaseEntity {
 		return Quiz.builder()
 			.id(getId())
 			.type(type)
-			.content(content)
 			.missionId(missionId)
 			.hint(hint)
 			.answer(answer)
