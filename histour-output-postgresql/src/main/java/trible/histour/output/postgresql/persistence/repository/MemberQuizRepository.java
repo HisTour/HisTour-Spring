@@ -8,4 +8,6 @@ import trible.histour.output.postgresql.persistence.entity.MemberQuizEntity;
 
 public interface MemberQuizRepository extends JpaRepository<MemberQuizEntity, Long> {
 	List<MemberQuizEntity> findAllByMemberIdAndQuizIdIn(long memberId, List<Long> quizIds);
+
+	void deleteByMemberId(long memberId);
 }

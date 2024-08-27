@@ -10,4 +10,6 @@ public interface MemberMissionRepository extends JpaRepository<MemberMissionEnti
 	List<MemberMissionEntity> findByMemberIdAndMissionIdIn(long memberId, List<Long> missionIds);
 
 	List<MemberMissionEntity> findAllByMemberId(long memberId);
+
+	void deleteByMemberId(long memberId);
 }

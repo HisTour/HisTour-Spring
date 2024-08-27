@@ -36,10 +36,38 @@ public interface AuthApiDocs {
 		summary = "액세스 토큰 재발급 api",
 		description = "액세스 토큰을 재발급합니다. 스웨거 상단 오른쪽 Authorize 내 리프레시 토큰(로그인 때 발급) 추가 후 실행해주세요.",
 		responses = {
-			@ApiResponse(responseCode = "201", description = "CREATED success")
+			@ApiResponse(responseCode = "200", description = "OK success")
 		}
 	)
 	SuccessResponse<SignInResponse> reissueAccessToken(
+		@Parameter(hidden = true) Principal principal
+	);
+
+	@Operation(
+		summary = "로그아웃 api",
+		description = "로그아웃을 진행합니다.",
+		responses = {
+			@ApiResponse(
+				responseCode = "200",
+				description = "OK success",
+				content = @Content(schema = @Schema(implementation = SuccessResponse.class)))
+		}
+	)
+	SuccessResponse<?> logout(
+		@Parameter(hidden = true) Principal principal
+	);
+
+	@Operation(
+		summary = "회원탈퇴 api",
+		description = "회원탈퇴를 진행합니다.",
+		responses = {
+			@ApiResponse(
+				responseCode = "200",
+				description = "OK success",
+				content = @Content(schema = @Schema(implementation = SuccessResponse.class)))
+		}
+	)
+	SuccessResponse<?> withdraw(
 		@Parameter(hidden = true) Principal principal
 	);
 }

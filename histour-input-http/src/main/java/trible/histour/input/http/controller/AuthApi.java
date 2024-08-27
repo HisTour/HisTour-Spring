@@ -3,7 +3,9 @@ package trible.histour.input.http.controller;
 import java.security.Principal;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -43,5 +45,23 @@ public class AuthApi implements AuthApiDocs {
 		val memberId = Long.parseLong(principal.getName());
 		val response = authUseCase.reissueAccessToken(memberId);
 		return SuccessResponse.of(response);
+	}
+
+	@ResponseStatus(HttpStatus.OK)
+	@PatchMapping
+	@Override
+	public SuccessResponse<?> logout(Principal principal) {
+		val memberId = Long.parseLong(principal.getName());
+		authUseCase.signOut(memberId);
+		return SuccessResponse.ofEmpty();
+	}
+
+	@ResponseStatus(HttpStatus.OK)
+	@DeleteMapping
+	@Override
+	public SuccessResponse<?> withdraw(Principal principal) {
+		val memberId = Long.parseLong(principal.getName());
+		authUseCase.withdraw(memberId);
+		return SuccessResponse.ofEmpty();
 	}
 }

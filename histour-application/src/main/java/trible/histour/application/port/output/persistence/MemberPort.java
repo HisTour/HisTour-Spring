@@ -9,4 +9,6 @@ public interface MemberPort {
 	void update(Member member);
 
 	Member findById(long memberId);
+
+	void deleteById(long memberId);
 }
