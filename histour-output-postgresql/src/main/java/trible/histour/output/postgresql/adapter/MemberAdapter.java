@@ -10,12 +10,16 @@ import trible.histour.application.port.output.persistence.MemberPort;
 import trible.histour.common.exception.ExceptionCode;
 import trible.histour.common.exception.HistourException;
 import trible.histour.output.postgresql.persistence.entity.MemberEntity;
+import trible.histour.output.postgresql.persistence.repository.MemberMissionRepository;
+import trible.histour.output.postgresql.persistence.repository.MemberQuizRepository;
 import trible.histour.output.postgresql.persistence.repository.MemberRepository;
 
 @Repository
 @RequiredArgsConstructor
 public class MemberAdapter implements MemberPort {
 	private final MemberRepository memberRepository;
+	private final MemberMissionRepository memberMissionRepository;
+	private final MemberQuizRepository memberQuizRepository;
 
 	@Override
 	public Member signInBySocial(SocialInfo social) {
@@ -36,6 +40,13 @@ public class MemberAdapter implements MemberPort {
 	@Override
 	public Member findById(long memberId) {
 		return find(memberId).toDomain();
+	}
+
+	@Override
+	public void deleteById(long memberId) {
+		memberQuizRepository.deleteByMemberId(memberId);
+		memberMissionRepository.deleteByMemberId(memberId);
+		memberRepository.deleteById(memberId);
 	}
 
 	private MemberEntity find(long id) {
