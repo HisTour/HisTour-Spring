@@ -15,12 +15,7 @@ import trible.histour.output.postgresql.persistence.repository.AttractionReposit
 public class AttractionAdapter implements AttractionPort {
 	private final AttractionRepository attractionRepository;
 	@Override
-	public List<Attraction> findAllByAttractionIds(List<Long> ids) {
-		return attractionRepository.findAllByIdIn(ids).stream().map(AttractionEntity::toDomain).toList();
-	}
-
-	@Override
-	public Long countAttraction() {
-		return attractionRepository.countAttraction();
+	public List<Attraction> findRandomAttractions() {
+		return attractionRepository.findRandomAttractions().stream().map(AttractionEntity::toDomain).toList();
 	}
 }

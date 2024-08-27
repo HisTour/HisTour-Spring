@@ -21,7 +21,7 @@ public class AttractionApi implements AttractionApiDocs {
 	private final AttractionUseCase attractionUseCase;
 
 	@ResponseStatus(HttpStatus.OK)
-	@GetMapping()
+	@GetMapping
 	@Override
 	public SuccessResponse<AttractionsResponse> getAttractions() {
 		val response = attractionUseCase.getAttractions();
