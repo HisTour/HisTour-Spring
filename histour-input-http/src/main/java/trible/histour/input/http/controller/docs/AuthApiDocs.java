@@ -2,7 +2,6 @@ package trible.histour.input.http.controller.docs;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -23,12 +22,7 @@ public interface AuthApiDocs {
 		}
 	)
 	SuccessResponse<SignInResponse> signIn(
-		@Parameter(
-			name = "Authorization",
-			description = "소셜서비스 액세스 토큰",
-			required = true,
-			in = ParameterIn.HEADER
-		) String socialAccessToken,
+		@Parameter(hidden = true) String socialAccessToken,
 		@RequestBody(
 			description = "로그인 Request Body",
 			required = true,
