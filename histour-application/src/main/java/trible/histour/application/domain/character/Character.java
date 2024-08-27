@@ -6,7 +6,15 @@ import lombok.Builder;
 @Builder
 public record Character(
 	long id,
-	@NotNull String name,
-	@NotNull String description
+	@NotNull
+	String name,
+	@NotNull
+	String description,
+	@NotNull
+	CharacterImageInfo imageInfo,
+	@NotNull
+	CharacterCommentInfo commentInfo,
+	@NotNull
+	CharacterColorInfo colorInfo
 ) {
 }
