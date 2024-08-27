@@ -32,6 +32,12 @@ public class AuthService implements AuthUseCase {
 		return SignInResponse.of(signedMember, generateAccessToken(signedMember.getId()));
 	}
 
+	@Override
+	public SignInResponse reissueAccessToken(long memberId) {
+		val member = memberPort.findById(memberId);
+		return SignInResponse.of(member, generateAccessToken(member.getId()));
+	}
+
 	private String generateAccessToken(long memberId) {
 		return tokenManager.generateToken(memberId, ACCESS_TOKEN_EXPIRATION_TIME);
 	}
