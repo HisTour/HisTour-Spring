@@ -3,6 +3,7 @@ package trible.histour.input.http.controller;
 import java.security.Principal;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +14,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.val;
 import trible.histour.application.port.input.MemberUseCase;
 import trible.histour.application.port.input.dto.request.member.CharacterUpdateRequest;
+import trible.histour.application.port.input.dto.response.member.MemberInfoResponse;
 import trible.histour.input.http.controller.docs.MemberApiDocs;
 import trible.histour.input.http.controller.dto.response.SuccessResponse;
 
@@ -30,5 +32,14 @@ public class MemberApi implements MemberApiDocs {
 		val characterId = request.characterId();
 		memberUseCase.updateCharacter(memberId, characterId);
 		return SuccessResponse.ofEmpty();
+	}
+
+	@ResponseStatus(HttpStatus.OK)
+	@GetMapping("/info")
+	@Override
+	public SuccessResponse<MemberInfoResponse> getMemberInfo(Principal principal) {
+		val memberId = Long.parseLong(principal.getName());
+		val response = memberUseCase.getMemberInfo(memberId);
+		return SuccessResponse.of(response);
 	}
 }
