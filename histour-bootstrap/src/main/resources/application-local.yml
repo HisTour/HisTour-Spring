@@ -5,6 +5,7 @@ spring:
       - classpath:application-config/application-local.yml
       - classpath:discord-config/application-local.yml
       - classpath:oauth-config/application-local.yml
+      - classpath:data-config/application-local.yml
     activate:
       on-profile: local
 server:

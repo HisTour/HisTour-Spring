@@ -7,6 +7,13 @@ project(':histour-output-web:oauth') {
     }
 }
 
+project(':histour-output-web:data') {
+    dependencies {
+        // fox XML
+        implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.15.2'
+    }
+}
+
 allprojects {
     dependencies {
         implementation project(':histour-common')
