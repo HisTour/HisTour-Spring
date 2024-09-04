@@ -1,0 +1,4 @@
+data:
+  holiday:
+    api: http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getAnniversaryInfo
+    secret: ${DATA_HOLIDAY_SECRET}
