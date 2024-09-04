@@ -4,11 +4,21 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "data")
 public record DataProperties(
-	Holiday holiday
+	Holiday holiday,
+	Attraction attraction
 ) {
 	public record Holiday(
 		String api,
 		String secret
+	) {
+	}
+
+	public record Attraction(
+			String api,
+			String serviceKey,
+			String mapX,
+			String mapY,
+			String radius
 	) {
 	}
 }
