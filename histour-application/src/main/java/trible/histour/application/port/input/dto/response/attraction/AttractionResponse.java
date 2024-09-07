@@ -3,7 +3,6 @@ package trible.histour.application.port.input.dto.response.attraction;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
 import lombok.Builder;
-import trible.histour.application.domain.attraction.Attraction;
 
 @Builder(access = AccessLevel.PRIVATE)
 @Schema(description = "추천 여행지 조회 응답")
@@ -15,11 +14,4 @@ public record AttractionResponse(
 		@Schema(description = "추천 여행지 이미지", example = "url형식")
 		String imageUrl
 ) {
-	public static AttractionResponse of(Attraction attraction) {
-		return AttractionResponse.builder()
-				.name(attraction.getName())
-				.description(attraction.getDescription())
-				.imageUrl(attraction.getImageUrl())
-				.build();
-	}
 }
