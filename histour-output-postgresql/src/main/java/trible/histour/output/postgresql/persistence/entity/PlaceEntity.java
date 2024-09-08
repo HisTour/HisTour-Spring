@@ -16,6 +16,8 @@ public class PlaceEntity extends BaseEntity {
 	private String description;
 	@Column(nullable = false)
 	private int requiredMissionCount;
+	@Column(nullable = false)
+	private int missionsImageUrl;
 
 	public PlaceEntity(Place place) {
 		this.name = place.getName();
