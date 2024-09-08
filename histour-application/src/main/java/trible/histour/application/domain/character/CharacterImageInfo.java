@@ -6,6 +6,8 @@ import lombok.Builder;
 @Builder
 public record CharacterImageInfo(
 	@NotNull
-	String normalImageUrl
+	String normalImageUrl,
+	@NotNull
+	String faceImageUrl
 ) {
 }
