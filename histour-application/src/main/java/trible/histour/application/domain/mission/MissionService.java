@@ -60,4 +60,12 @@ public class MissionService implements MissionUseCase {
 			}))
 		);
 	}
+
+	@Transactional
+	@Override
+	public void completeMemberMission(long memberId, long missionId) {
+		val memberMission = memberMissionPort.findByMemberIdAndMissionId(memberId, missionId);
+		memberMission.complete();
+		memberMissionPort.update(memberMission);
+	}
 }

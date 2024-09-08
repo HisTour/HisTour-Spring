@@ -10,4 +10,8 @@ public interface MemberMissionPort {
 	MemberMission save(MemberMission memberMission);
 
 	List<MemberMission> findAllByMemberId(long memberId);
+
+	MemberMission findByMemberIdAndMissionId(long memberId, long missionId);
+
+	void update(MemberMission memberMission);
 }

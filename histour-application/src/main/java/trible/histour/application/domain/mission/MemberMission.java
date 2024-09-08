@@ -28,4 +28,8 @@ public class MemberMission {
 	public boolean isCompleted() {
 		return this.state == MissionState.COMPLETE;
 	}
+
+	public void complete() {
+		this.state = MissionState.COMPLETE;
+	}
 }

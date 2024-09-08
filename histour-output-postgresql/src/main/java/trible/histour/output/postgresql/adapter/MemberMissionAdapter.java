@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.val;
 import trible.histour.application.domain.mission.MemberMission;
 import trible.histour.application.port.output.persistence.MemberMissionPort;
+import trible.histour.common.exception.ExceptionCode;
+import trible.histour.common.exception.HistourException;
 import trible.histour.output.postgresql.persistence.entity.MemberMissionEntity;
 import trible.histour.output.postgresql.persistence.repository.MemberMissionRepository;
 
@@ -32,5 +34,20 @@ public class MemberMissionAdapter implements MemberMissionPort {
 	public List<MemberMission> findAllByMemberId(long memberId) {
 		return memberMissionRepository.findAllByMemberId(memberId)
 			.stream().map(MemberMissionEntity::toDomain).toList();
+	}
+
+	@Override
+	public MemberMission findByMemberIdAndMissionId(long memberId, long missionId) {
+		return memberMissionRepository.findByMemberIdAndMissionId(memberId, missionId)
+			.orElseThrow(() -> new HistourException(
+				ExceptionCode.NOT_FOUND,
+				"Member ID: " + memberId + ", Mission ID: " + missionId))
+			.toDomain();
+	}
+
+	@Override
+	public void update(MemberMission memberMission) {
+		val memberMissionEntity = new MemberMissionEntity(memberMission);
+		memberMissionEntity.update(memberMission);
 	}
 }
