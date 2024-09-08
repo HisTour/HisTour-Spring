@@ -28,4 +28,20 @@ public interface MissionApiDocs {
 			in = ParameterIn.PATH
 		) long placeId
 	);
+
+	@Operation(
+		summary = "미션 해금 api",
+		description = "서브미션을 COMPLETE 상태로 변경합니다.",
+		responses = {
+			@ApiResponse(responseCode = "200", description = "OK success")
+		}
+	)
+	SuccessResponse<?> completeMemberMission(
+		@Parameter(hidden = true) Principal principal,
+		@Parameter(
+			description = "미션 id",
+			required = true,
+			in = ParameterIn.PATH
+		) long missionId
+	);
 }

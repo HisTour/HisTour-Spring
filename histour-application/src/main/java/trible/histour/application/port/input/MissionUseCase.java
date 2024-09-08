@@ -4,4 +4,6 @@ import trible.histour.application.port.input.dto.response.mission.MissionsRespon
 
 public interface MissionUseCase {
 	MissionsResponse getMissions(long memberId, long placeId);
+
+	void completeMemberMission(long memberId, long missionId);
 }

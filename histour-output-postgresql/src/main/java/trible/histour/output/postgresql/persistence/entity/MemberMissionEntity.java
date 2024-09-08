@@ -36,4 +36,10 @@ public class MemberMissionEntity extends BaseEntity {
 			.createdAt(getCreatedAt())
 			.build();
 	}
+
+	public void update(MemberMission memberMission) {
+		this.memberId = memberMission.getMemberId();
+		this.missionId = memberMission.getMissionId();
+		this.state = memberMission.getState();
+	}
 }

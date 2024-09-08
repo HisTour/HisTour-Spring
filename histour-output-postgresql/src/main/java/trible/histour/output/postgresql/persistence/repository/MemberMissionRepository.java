@@ -1,6 +1,7 @@
 package trible.histour.output.postgresql.persistence.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -12,4 +13,6 @@ public interface MemberMissionRepository extends JpaRepository<MemberMissionEnti
 	List<MemberMissionEntity> findAllByMemberId(long memberId);
 
 	void deleteByMemberId(long memberId);
+
+	Optional<MemberMissionEntity> findByMemberIdAndMissionId(long memberId, long missionId);
 }
