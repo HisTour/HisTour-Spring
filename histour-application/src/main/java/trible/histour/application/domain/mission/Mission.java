@@ -1,5 +1,7 @@
 package trible.histour.application.domain.mission;
 
+import java.time.LocalDateTime;
+
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,4 +15,6 @@ public class Mission {
 	MissionType type;
 	@NotNull
 	String name;
+	@NotNull
+	LocalDateTime updatedAt;
 }
