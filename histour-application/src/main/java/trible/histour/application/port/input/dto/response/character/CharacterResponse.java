@@ -15,7 +15,7 @@ public record CharacterResponse(
 	String description,
 	@Schema(description = "캐릭터 이미지 정보")
 	CharacterImageResponse image,
-	@Schema(description = "캐릭터 이미지 정보")
+	@Schema(description = "캐릭터 대사 정보")
 	CharacterCommentResponse comment,
 	@Schema(description = "캐릭터 색 정보")
 	CharacterColorResponse color
