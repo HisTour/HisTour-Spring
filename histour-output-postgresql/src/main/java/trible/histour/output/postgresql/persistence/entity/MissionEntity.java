@@ -33,6 +33,7 @@ public class MissionEntity extends BaseEntity {
 			.placeId(placeId)
 			.type(type)
 			.name(name)
+			.updatedAt(getUpdatedAt())
 			.build();
 	}
 }

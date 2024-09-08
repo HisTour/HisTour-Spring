@@ -1,5 +1,6 @@
 package trible.histour.application.port.input.dto.response.mission;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -27,7 +28,9 @@ public record MissionResponse(
 	@Schema(description = "수행한 퀴즈 개수", example = "3")
 	int clearedQuizCount,
 	@Schema(description = "전체 퀴즈 개수", example = "6")
-	int totalQuizCount
+	int totalQuizCount,
+	@Schema(description = "업데이트 일시", example = "2024-09-08 05:25:09.873962")
+	LocalDateTime updatedAt
 ) {
 
 	public static MissionResponse of(
@@ -47,6 +50,7 @@ public record MissionResponse(
 			.type(mission.getType())
 			.clearedQuizCount(clearedQuizCount)
 			.totalQuizCount(totalQuizCount)
+			.updatedAt(mission.getUpdatedAt())
 			.build();
 	}
 }
