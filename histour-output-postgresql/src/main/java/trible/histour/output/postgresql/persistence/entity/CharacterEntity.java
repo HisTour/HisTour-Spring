@@ -20,6 +20,8 @@ public class CharacterEntity extends BaseEntity {
 	@Column(nullable = false)
 	private String normalImageUrl;
 	@Column(nullable = false)
+	private String faceImageUrl;
+	@Column(nullable = false)
 	private String welcomeComment;
 	@Column(nullable = false)
 	private String commentColor;
@@ -42,6 +44,7 @@ public class CharacterEntity extends BaseEntity {
 	private CharacterImageInfo toImageInfo() {
 		return CharacterImageInfo.builder()
 			.normalImageUrl(this.normalImageUrl)
+			.faceImageUrl(this.faceImageUrl)
 			.build();
 	}
 
