@@ -17,7 +17,9 @@ public record PlaceResponse(
 	@Schema(description = "수행한 미션 개수", example = "3")
 	int clearedMissionCount,
 	@Schema(description = "전체 미션 개수", example = "10")
-	int totalMissionCount
+	int totalMissionCount,
+	@Schema(description = "서브미션 고르는 이미지 url", example = "https://test.com")
+	String missionsImageUrl
 ) {
 
 	public static PlaceResponse of(Place place, int clearedMissionCount) {
@@ -26,7 +28,8 @@ public record PlaceResponse(
 			.name(place.getName())
 			.description(place.getDescription())
 			.clearedMissionCount(clearedMissionCount)
-			.totalMissionCount(place.getRequiredMissionCount()) //TODO: client,plan 논의 필요
+			.totalMissionCount(place.getRequiredMissionCount())
+			.missionsImageUrl(place.getMissionsImageUrl())
 			.build();
 	}
 }

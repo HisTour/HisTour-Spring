@@ -17,13 +17,7 @@ public class PlaceEntity extends BaseEntity {
 	@Column(nullable = false)
 	private int requiredMissionCount;
 	@Column(nullable = false)
-	private int missionsImageUrl;
-
-	public PlaceEntity(Place place) {
-		this.name = place.getName();
-		this.description = place.getDescription();
-		this.requiredMissionCount = place.getRequiredMissionCount();
-	}
+	private String missionsImageUrl;
 
 	public Place toDomain() {
 		return Place.builder()
@@ -31,6 +25,7 @@ public class PlaceEntity extends BaseEntity {
 			.name(name)
 			.description(description)
 			.requiredMissionCount(requiredMissionCount)
+			.missionsImageUrl(missionsImageUrl)
 			.build();
 	}
 }

@@ -13,4 +13,6 @@ public class Place {
 	@NotNull
 	String description;
 	int requiredMissionCount;
+	@NotNull
+	String missionsImageUrl;
 }
