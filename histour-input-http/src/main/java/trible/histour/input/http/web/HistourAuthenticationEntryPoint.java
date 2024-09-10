@@ -1,6 +1,7 @@
 package trible.histour.input.http.web;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.val;
 import trible.histour.common.exception.ExceptionCode;
 import trible.histour.input.http.controller.dto.response.ExceptionResponse;
 
@@ -21,9 +23,9 @@ public class HistourAuthenticationEntryPoint implements AuthenticationEntryPoint
 
 	@Override
 	public void commence(
-			HttpServletRequest request,
-			HttpServletResponse response,
-			AuthenticationException authException
+		HttpServletRequest request,
+		HttpServletResponse response,
+		AuthenticationException authException
 	) throws IOException {
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
@@ -32,8 +34,15 @@ public class HistourAuthenticationEntryPoint implements AuthenticationEntryPoint
 	}
 
 	private ResponseEntity<ExceptionResponse> exceptionResponse() {
+		val exceptionCode = ExceptionCode.UNAUTHORIZED;
 		return ResponseEntity
-				.status(ExceptionCode.UNAUTHORIZED.getStatusCode())
-				.body(new ExceptionResponse(ExceptionCode.UNAUTHORIZED.getMessage()));
+			.status(exceptionCode.getStatusCode())
+			.body(
+				ExceptionResponse.builder()
+					.code(exceptionCode.name())
+					.message(exceptionCode.getMessage())
+					.timestamp(LocalDateTime.now())
+					.build()
+			);
 	}
 }
