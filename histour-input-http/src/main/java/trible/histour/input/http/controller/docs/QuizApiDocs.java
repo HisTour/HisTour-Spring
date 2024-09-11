@@ -5,8 +5,12 @@ import java.security.Principal;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import trible.histour.application.port.input.dto.request.quiz.QuizGradeRequest;
 import trible.histour.application.port.input.dto.response.quiz.QuizzesResponse;
 import trible.histour.input.http.controller.dto.response.SuccessResponse;
 
@@ -28,5 +32,21 @@ public interface QuizApiDocs {
 			required = true,
 			in = ParameterIn.PATH
 		) long missionId
+	);
+
+	@Operation(
+			summary = "퀴즈 채점 API",
+			description = "퀴즈를 채점합니다.",
+			responses = {
+				@ApiResponse(responseCode = "201", description = "OK success")
+			}
+	)
+	SuccessResponse<?> gradeMemberQuiz(
+			@Parameter(hidden = true) Principal principal,
+			@RequestBody(
+				description = "퀴즈 채점 api",
+				required = true,
+				content = @Content(schema = @Schema(implementation = QuizGradeRequest.class))
+			) QuizGradeRequest quizGradeRequest
 	);
 }

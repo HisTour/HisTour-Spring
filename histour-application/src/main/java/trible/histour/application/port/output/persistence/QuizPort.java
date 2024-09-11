@@ -8,4 +8,6 @@ public interface QuizPort {
 	List<Quiz> findAllByMissionId(long missionId);
 
 	List<Quiz> findAllByMissionIds(List<Long> missionIds);
+
+	Quiz findById(long quizId);
 }

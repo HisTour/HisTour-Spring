@@ -1,7 +1,6 @@
 package trible.histour.application.domain.attraction;
 
 import java.util.Collections;
-import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,7 +11,6 @@ import trible.histour.application.port.input.AttractionUseCase;
 import trible.histour.application.port.input.dto.response.attraction.AttractionResponse;
 import trible.histour.application.port.input.dto.response.attraction.AttractionsResponse;
 import trible.histour.application.port.output.web.DataPort;
-import trible.histour.application.port.output.web.dto.response.DataAttractionResponse;
 
 @Service
 @RequiredArgsConstructor
@@ -23,12 +21,12 @@ public class AttractionService implements AttractionUseCase {
 	public AttractionsResponse getAttractions() {
 		val response = dataPort.getAttraction();
 
-		List<DataAttractionResponse.Response.Body.Items.Item> items = response.response().body().items().item();
+		val items = response.response().body().items().item();
 
 		Collections.shuffle(items);
-		List<DataAttractionResponse.Response.Body.Items.Item> randomItems = items.stream().limit(4).toList();
+		val randomItems = items.stream().limit(4).toList();
 
-		List<AttractionResponse> attractionResponses = randomItems.stream()
+		val attractionResponses = randomItems.stream()
 				.map(item -> new AttractionResponse(item.title(), item.script(), item.imageUrl()))
 						.toList();
 

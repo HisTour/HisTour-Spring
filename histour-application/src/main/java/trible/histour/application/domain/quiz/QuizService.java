@@ -1,6 +1,7 @@
 package trible.histour.application.domain.quiz;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -10,10 +11,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.val;
 import trible.histour.application.domain.mission.MemberMission;
 import trible.histour.application.domain.mission.Mission;
+import trible.histour.application.domain.mission.MissionState;
 import trible.histour.application.domain.mission.MissionType;
 import trible.histour.application.port.input.QuizUseCase;
+import trible.histour.application.port.input.dto.request.quiz.QuizGradeRequest;
+import trible.histour.application.port.input.dto.response.quiz.QuizGradeResponse;
 import trible.histour.application.port.input.dto.response.quiz.QuizzesResponse;
 import trible.histour.application.port.output.persistence.MemberMissionPort;
+import trible.histour.application.port.output.persistence.MemberQuizPort;
 import trible.histour.application.port.output.persistence.MissionPort;
 import trible.histour.application.port.output.persistence.PlacePort;
 import trible.histour.application.port.output.persistence.QuizPort;
@@ -28,6 +33,7 @@ public class QuizService implements QuizUseCase {
 	private final MissionPort missionPort;
 	private final PlacePort placePort;
 	private final MemberMissionPort memberMissionPort;
+	private final MemberQuizPort memberQuizPort;
 
 	@Transactional
 	@Override
@@ -45,6 +51,23 @@ public class QuizService implements QuizUseCase {
 
 		val quizzes = quizPort.findAllByMissionId(missionId);
 		return QuizzesResponse.of(mission, quizzes);
+	}
+
+	@Transactional
+	@Override
+	public QuizGradeResponse gradeQuiz(long memberId, QuizGradeRequest quizGradeRequest) {
+		val quiz = quizPort.findById(quizGradeRequest.quizId());
+		val quizType = quiz.getType();
+		val mission = missionPort.findById(quiz.getMissionId());
+		val requiredMissionCount = placePort.findById(mission.getPlaceId()).getRequiredMissionCount();
+		val clearMissionCount = getPlaceClearMission(memberId, quiz, quizGradeRequest.isLastTask());
+		boolean isAnswerCorrect = quizType.equals(QuizType.READING)
+				|| quizGradeRequest.memberAnswer().equals(quiz.answer);
+		if (isAnswerCorrect) {
+			memberQuizPort.save(new MemberQuiz(memberId, quiz.getId()));
+			return QuizGradeResponse.of(true, clearMissionCount, requiredMissionCount);
+		}
+		return QuizGradeResponse.of(false, null, null);
 	}
 
 	private void validMemberQuiz(
@@ -84,5 +107,22 @@ public class QuizService implements QuizUseCase {
 						+ "), MemberID: " + memberId);
 			}
 		}
+	}
+
+	private Integer getPlaceClearMission(long memberId, Quiz quiz, boolean isLastQuiz) {
+		if (isLastQuiz) {
+			val placeId = missionPort.findById(quiz.getMissionId()).getPlaceId();
+			val placeMissions = missionPort.findAllByPlaceId(placeId);
+			val memberCompleteMissions = memberMissionPort.findAllByMemberIdAndState(memberId, MissionState.COMPLETE);
+			val placeMissionIds = placeMissions.stream()
+					.map(Mission::getId)
+					.collect(Collectors.toSet());
+
+			long completeMissionNumber = memberCompleteMissions.stream()
+					.filter(memberMission -> placeMissionIds.contains(memberMission.getMissionId()))
+					.count();
+			return (int)completeMissionNumber;
+		}
+		return null;
 	}
 }
