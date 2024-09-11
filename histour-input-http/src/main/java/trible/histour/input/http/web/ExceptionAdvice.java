@@ -1,5 +1,7 @@
 package trible.histour.input.http.web;
 
+import java.time.LocalDateTime;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -26,16 +28,28 @@ public class ExceptionAdvice {
 		log.error(exception.getMessage());
 		return ResponseEntity
 			.status(exception.statusCode)
-			.body(new ExceptionResponse(exception.defaultMessage, exception.detailMessage));
+			.body(
+				ExceptionResponse.builder()
+					.code(exception.exceptionCode)
+					.message(exception.defaultMessage)
+					.cause(exception.detailMessage)
+					.timestamp(LocalDateTime.now())
+					.build()
+			);
 	}
 
-	@ExceptionHandler(RuntimeException.class)
+	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ExceptionResponse> handleRuntimeException(RuntimeException exception, WebRequest webRequest) {
 		log.error(exception.getMessage());
 		hookLogger.send(LoggerRequest.error(exception, requestUri(webRequest)));
 		return ResponseEntity
 			.status(HttpStatus.INTERNAL_SERVER_ERROR)
-			.body(new ExceptionResponse(exception.getMessage()));
+			.body(
+				ExceptionResponse.builder()
+					.message("예기치 못한 에러가 발생했습니다.")
+					.timestamp(LocalDateTime.now())
+					.build()
+			);
 	}
 
 	private String requestUri(WebRequest webRequest) {
