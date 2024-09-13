@@ -21,6 +21,13 @@ public record DiscordRequest(
 			.build();
 	}
 
+	public static DiscordRequest of(String title, String username, String content) {
+		return DiscordRequest.builder()
+			.content("# " + title)
+			.embeds(List.of(new Embed(username + "님의 추천", content)))
+			.build();
+	}
+
 	@Builder(access = AccessLevel.PRIVATE)
 	private record Embed(
 		String title,

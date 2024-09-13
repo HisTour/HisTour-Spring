@@ -12,8 +12,10 @@ import trible.histour.application.domain.mission.Mission;
 import trible.histour.application.port.input.PlaceUseCase;
 import trible.histour.application.port.input.dto.response.place.PlacesResponse;
 import trible.histour.application.port.output.persistence.MemberMissionPort;
+import trible.histour.application.port.output.persistence.MemberPort;
 import trible.histour.application.port.output.persistence.MissionPort;
 import trible.histour.application.port.output.persistence.PlacePort;
+import trible.histour.common.logger.HookLogger;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +24,8 @@ public class PlaceService implements PlaceUseCase {
 	private final PlacePort placePort;
 	private final MissionPort missionPort;
 	private final MemberMissionPort memberMissionPort;
+	private final MemberPort memberPort;
+	private final HookLogger hookLogger;
 
 	@Override
 	public PlacesResponse getPlaces(long memberId) {
@@ -34,5 +38,11 @@ public class PlaceService implements PlaceUseCase {
 			.collect(Collectors.groupingBy(Mission::getPlaceId));
 
 		return PlacesResponse.of(placeById, missionsByPlaceId);
+	}
+
+	@Override
+	public void recommendPlace(long memberId, String content) {
+		val member = memberPort.findById(memberId);
+		hookLogger.recommendPlace(member.getId(), member.getUsername(), content);
 	}
 }

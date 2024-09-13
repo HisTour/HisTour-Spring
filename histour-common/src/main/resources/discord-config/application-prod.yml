@@ -1,3 +1,4 @@
 discord:
   webhook:
     url: ${DISCORD_WEBHOOK_URL}
+    recommend_place_url: ${DISCORD_WEBHOOK_RECOMMEND_PLACE_URL}
