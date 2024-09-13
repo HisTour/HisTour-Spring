@@ -41,7 +41,7 @@ public class ExceptionAdvice {
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ExceptionResponse> handleRuntimeException(RuntimeException exception, WebRequest webRequest) {
 		log.error(exception.getMessage());
-		hookLogger.send(LoggerRequest.error(exception, requestUri(webRequest)));
+		hookLogger.sendException(LoggerRequest.error(exception, requestUri(webRequest)));
 		return ResponseEntity
 			.status(HttpStatus.INTERNAL_SERVER_ERROR)
 			.body(
