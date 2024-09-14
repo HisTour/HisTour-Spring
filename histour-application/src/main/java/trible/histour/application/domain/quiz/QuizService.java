@@ -59,7 +59,7 @@ public class QuizService implements QuizUseCase {
 		val quizType = quiz.getType();
 		val mission = missionPort.findById(quiz.getMissionId());
 		val requiredMissionCount = placePort.findById(mission.getPlaceId()).getRequiredMissionCount();
-		val clearMissionCount = getPlaceClearMission(memberId, quiz, quizGradeRequest.isLastTask());
+		val clearMissionCount = getPlaceClearMission(memberId, mission.getPlaceId(), quizGradeRequest.isLastTask());
 		val isAnswerCorrect = getIsAnswerCorrect(quizType, quizGradeRequest.memberAnswer(), quiz.answer);
 		if (isAnswerCorrect) {
 			memberQuizPort.save(new MemberQuiz(memberId, quiz.getId()));
@@ -106,11 +106,10 @@ public class QuizService implements QuizUseCase {
 		}
 	}
 
-	private Integer getPlaceClearMission(long memberId, Quiz quiz, boolean isLastQuiz) {
+	private Integer getPlaceClearMission(long memberId, long placeId, boolean isLastQuiz) {
 		if (!isLastQuiz) {
 			return null;
 		}
-		val placeId = missionPort.findById(quiz.getMissionId()).getPlaceId();
 		val placeMissions = missionPort.findAllByPlaceId(placeId);
 		val memberCompleteMissions = memberMissionPort.findAllByMemberIdAndState(memberId, MissionState.COMPLETE);
 		val placeMissionIds = placeMissions.stream()
