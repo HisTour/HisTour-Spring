@@ -37,12 +37,6 @@ public class QuizService implements QuizUseCase {
 		val missionIds = missions.stream().map(Mission::getId).toList();
 		val memberMissions = memberMissionPort.findAllByMemberIdAndMissionIds(memberId, missionIds);
 		validMemberQuiz(memberId, mission, memberMissions, missions);
-
-		memberMissions.stream()
-			.filter(memberMission -> memberMission.getMissionId() == missionId)
-			.findAny()
-			.orElseGet(() -> memberMissionPort.save(new MemberMission(memberId, missionId)));
-
 		val quizzes = quizPort.findAllByMissionId(missionId);
 		return QuizzesResponse.of(mission, quizzes);
 	}
@@ -54,6 +48,13 @@ public class QuizService implements QuizUseCase {
 		List<Mission> missions
 	) {
 		val completedMemberMissions = memberMissions.stream().filter(MemberMission::isCompleted).toList();
+
+		memberMissions.stream()
+			.filter(it -> it.getMissionId() == mission.getId())
+			.findAny()
+			.orElseThrow(() -> new HistourException(
+				ExceptionCode.NOT_UNLOCK_MISSION,
+				"MissionID: " + mission.getId() + ", MemberID: " + memberId));
 
 		completedMemberMissions.stream()
 			.filter(it -> it.getMissionId() == mission.getId())
