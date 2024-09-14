@@ -16,10 +16,13 @@ public class DiscordWebhookLogger implements HookLogger {
 	@Value("${discord.webhook.url}")
 	private String webhookUrl;
 
+	@Value("${discord.webhook.recommend_place_url}")
+	private String webhookRecommendPlaceUrl;
+
 	private static final String APPLICATION_JSON_UTF8_VALUE = "application/json; UTF-8";
 
 	@Override
-	public void send(LoggerRequest request) {
+	public void sendException(LoggerRequest request) {
 		try {
 			RestClient.create()
 				.post()
@@ -27,6 +30,24 @@ public class DiscordWebhookLogger implements HookLogger {
 				.header(HttpHeaders.ACCEPT, APPLICATION_JSON_UTF8_VALUE)
 				.header(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
 				.body(DiscordRequest.of(request))
+				.retrieve();
+		} catch (RuntimeException exception) {
+			log.error("Discord Error", exception);
+		}
+	}
+
+	@Override
+	public void recommendPlace(long memberId, String username, String content) {
+		try {
+			RestClient.create()
+				.post()
+				.uri(webhookRecommendPlaceUrl)
+				.header(HttpHeaders.ACCEPT, APPLICATION_JSON_UTF8_VALUE)
+				.header(HttpHeaders.CONTENT_TYPE, APPLICATION_JSON_UTF8_VALUE)
+				.body(DiscordRequest.of(
+					"여행지 추천 알림",
+					"[MemberID: " + memberId + "] " + username,
+					content))
 				.retrieve();
 		} catch (RuntimeException exception) {
 			log.error("Discord Error", exception);

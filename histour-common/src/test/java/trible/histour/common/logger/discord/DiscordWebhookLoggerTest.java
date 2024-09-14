@@ -19,8 +19,8 @@ class DiscordWebhookLoggerTest {
 	DiscordWebhookLogger discordWebhookLogger;
 
 	@Test
-	void sendErrorLogMessageToDiscord() {
+	void sendExceptionErrorLogMessageToDiscord() {
 		val request = LoggerRequest.of("test-uri", "TEST", "테스트 알림입니다.");
-		discordWebhookLogger.send(request);
+		discordWebhookLogger.sendException(request);
 	}
 }
