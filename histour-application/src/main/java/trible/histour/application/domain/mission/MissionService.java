@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.val;
 import trible.histour.application.domain.quiz.Quiz;
 import trible.histour.application.port.input.MissionUseCase;
+import trible.histour.application.port.input.dto.request.mission.UpdatedMissionsRequest;
 import trible.histour.application.port.input.dto.response.mission.MissionsResponse;
 import trible.histour.application.port.output.persistence.MemberMissionPort;
 import trible.histour.application.port.output.persistence.MemberQuizPort;
@@ -63,9 +64,13 @@ public class MissionService implements MissionUseCase {
 
 	@Transactional
 	@Override
-	public void completeMemberMission(long memberId, long missionId) {
-		val memberMission = memberMissionPort.findByMemberIdAndMissionId(memberId, missionId);
-		memberMission.complete();
-		memberMissionPort.update(memberMission);
+	public void completeMemberMission(long memberId, UpdatedMissionsRequest request) {
+		val completeMissionId = request.completedMissionId();
+		val completedMemberMission = memberMissionPort.findByMemberIdAndMissionId(memberId, completeMissionId);
+		completedMemberMission.complete();
+		memberMissionPort.update(completedMemberMission);
+
+		val nextMissionId = request.nextMissionId();
+		memberMissionPort.save(memberId, nextMissionId);
 	}
 }

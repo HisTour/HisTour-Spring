@@ -21,10 +21,10 @@ public class MemberMissionEntity extends BaseEntity {
 	@Column(nullable = false)
 	private MissionState state;
 
-	public MemberMissionEntity(MemberMission memberMission) {
-		this.memberId = memberMission.getMemberId();
-		this.missionId = memberMission.getMissionId();
-		this.state = memberMission.getState();
+	public MemberMissionEntity(long memberId, long missionId) {
+		this.memberId = memberId;
+		this.missionId = missionId;
+		this.state = MissionState.PROGRESS;
 	}
 
 	public MemberMission toDomain() {

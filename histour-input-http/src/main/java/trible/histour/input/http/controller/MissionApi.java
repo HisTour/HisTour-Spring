@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import trible.histour.application.port.input.MissionUseCase;
+import trible.histour.application.port.input.dto.request.mission.UpdatedMissionsRequest;
 import trible.histour.application.port.input.dto.response.mission.MissionsResponse;
 import trible.histour.input.http.controller.docs.MissionApiDocs;
 import trible.histour.input.http.controller.dto.response.SuccessResponse;
@@ -33,11 +35,11 @@ public class MissionApi implements MissionApiDocs {
 	}
 
 	@ResponseStatus(HttpStatus.OK)
-	@PatchMapping("/{missionId}/member")
+	@PatchMapping("/unlock")
 	@Override
-	public SuccessResponse<?> completeMemberMission(Principal principal, @PathVariable long missionId) {
+	public SuccessResponse<?> unlockMemberMission(Principal principal, @RequestBody UpdatedMissionsRequest request) {
 		val memberId = Long.parseLong(principal.getName());
-		missionUseCase.completeMemberMission(memberId, missionId);
+		missionUseCase.completeMemberMission(memberId, request);
 		return SuccessResponse.ofEmpty();
 	}
 }
