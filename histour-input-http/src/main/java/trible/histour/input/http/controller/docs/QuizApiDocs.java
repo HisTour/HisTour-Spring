@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import trible.histour.application.port.input.dto.request.quiz.QuizGradeRequest;
+import trible.histour.application.port.input.dto.response.quiz.QuizGradeResponse;
 import trible.histour.application.port.input.dto.response.quiz.QuizzesResponse;
 import trible.histour.input.http.controller.dto.response.SuccessResponse;
 
@@ -38,13 +39,13 @@ public interface QuizApiDocs {
 			summary = "퀴즈 채점 API",
 			description = "퀴즈를 채점합니다.",
 			responses = {
-				@ApiResponse(responseCode = "201", description = "OK success")
+				@ApiResponse(responseCode = "201", description = "CREATED success")
 			}
 	)
-	SuccessResponse<?> gradeMemberQuiz(
+	SuccessResponse<QuizGradeResponse> gradeMemberQuiz(
 			@Parameter(hidden = true) Principal principal,
 			@RequestBody(
-				description = "퀴즈 채점 api",
+				description = "퀴즈 채점 요청값",
 				required = true,
 				content = @Content(schema = @Schema(implementation = QuizGradeRequest.class))
 			) QuizGradeRequest quizGradeRequest

@@ -30,17 +30,17 @@ public class QuizApi implements QuizApiDocs {
 	@GetMapping("/mission/{missionId}")
 	@Override
 	public SuccessResponse<QuizzesResponse> getQuizzes(Principal principal, @PathVariable long missionId) {
-		long memberId = Long.parseLong(principal.getName());
+		val memberId = Long.parseLong(principal.getName());
 		val response = quizUseCase.getQuizzes(memberId, missionId);
 		return SuccessResponse.of(response);
 	}
 
 	@ResponseStatus(HttpStatus.CREATED)
-	@PostMapping("grade")
+	@PostMapping("/grade")
 	@Override
 	public SuccessResponse<QuizGradeResponse> gradeMemberQuiz(Principal principal,
 																@RequestBody QuizGradeRequest request) {
-		long memberId = Long.parseLong(principal.getName());
+		val memberId = Long.parseLong(principal.getName());
 		val response = quizUseCase.gradeQuiz(memberId, request);
 		return SuccessResponse.of(response);
 	}

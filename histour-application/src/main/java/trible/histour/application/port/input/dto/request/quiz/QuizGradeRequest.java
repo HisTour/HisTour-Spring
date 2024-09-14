@@ -8,7 +8,7 @@ public record QuizGradeRequest(
 		long quizId,
 		@Schema(description = "사용자 제출 답안", example = "수원")
 		String memberAnswer,
-		@Schema(description = "마지막 퀴즈 유무", example = "TRUE")
+		@Schema(description = "마지막 퀴즈 유무", example = "true")
 		boolean isLastTask
 ) {
 }
