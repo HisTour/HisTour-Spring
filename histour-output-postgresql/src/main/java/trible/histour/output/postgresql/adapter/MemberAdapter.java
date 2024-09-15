@@ -26,7 +26,8 @@ public class MemberAdapter implements MemberPort {
 		return memberRepository.findBySocialIdAndSocialType(social.id(), social.type())
 			.map(MemberEntity::toDomain)
 			.orElseGet(() -> {
-				val memberEntity = new MemberEntity(social);
+				val username = "깨비" + (memberRepository.count() + 1);
+				val memberEntity = new MemberEntity(social, username);
 				return memberRepository.save(memberEntity).toDomain();
 			});
 	}
