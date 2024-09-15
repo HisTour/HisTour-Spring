@@ -1,6 +1,7 @@
 package trible.histour.application.domain.mission;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -10,12 +11,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.val;
 import trible.histour.application.domain.quiz.Quiz;
 import trible.histour.application.port.input.MissionUseCase;
+import trible.histour.application.port.input.dto.request.mission.UpdatedMissionsRequest;
 import trible.histour.application.port.input.dto.response.mission.MissionsResponse;
 import trible.histour.application.port.output.persistence.MemberMissionPort;
 import trible.histour.application.port.output.persistence.MemberQuizPort;
 import trible.histour.application.port.output.persistence.MissionPort;
 import trible.histour.application.port.output.persistence.PlacePort;
 import trible.histour.application.port.output.persistence.QuizPort;
+import trible.histour.common.exception.ExceptionCode;
+import trible.histour.common.exception.HistourException;
 
 @Service
 @RequiredArgsConstructor
@@ -63,9 +67,64 @@ public class MissionService implements MissionUseCase {
 
 	@Transactional
 	@Override
-	public void completeMemberMission(long memberId, long missionId) {
-		val memberMission = memberMissionPort.findByMemberIdAndMissionId(memberId, missionId);
-		memberMission.complete();
-		memberMissionPort.update(memberMission);
+	public void completeMemberMission(long memberId, UpdatedMissionsRequest request) {
+		val completeMissionId = request.completedMissionId();
+		val completedMemberMission = memberMissionPort.findByMemberIdAndMissionId(memberId, completeMissionId);
+		completedMemberMission.complete();
+		memberMissionPort.update(completedMemberMission);
+
+		val nextMissionId = request.nextMissionId();
+		val mission = missionPort.findById(nextMissionId);
+		val missions = missionPort.findAllByPlaceId(mission.getPlaceId());
+		val missionIds = missions.stream().map(Mission::getId).toList();
+		val memberMissions = memberMissionPort.findAllByMemberIdAndMissionIds(memberId, missionIds);
+		validMemberQuiz(memberId, mission, memberMissions, missions);
+		memberMissionPort.save(memberId, nextMissionId);
+	}
+
+	private void validMemberQuiz(
+		long memberId,
+		Mission mission,
+		List<MemberMission> memberMissions,
+		List<Mission> missions
+	) {
+		val completedMemberMissions = memberMissions.stream().filter(MemberMission::isCompleted).toList();
+
+		memberMissions.stream()
+			.filter(it -> it.getMissionId() == mission.getId())
+			.findAny()
+			.orElseThrow(() -> new HistourException(
+				ExceptionCode.NOT_UNLOCK_MISSION,
+				"MissionID: " + mission.getId() + ", MemberID: " + memberId));
+
+		completedMemberMissions.stream()
+			.filter(it -> it.getMissionId() == mission.getId())
+			.findAny()
+			.ifPresent(it -> {
+				throw new HistourException(
+					ExceptionCode.BAD_REQUEST,
+					"이미 완료된 미션, MissionID: " + mission.getId() + ", MemberID: " + memberId);
+			});
+
+		if (mission.getType() == MissionType.NORMAL) {
+			val missionById = missions.stream().collect(Collectors.toMap(Mission::getId, it -> it));
+			completedMemberMissions.stream()
+				.filter(it -> missionById.get(it.getMissionId()).getType() == MissionType.INTRO)
+				.findAny()
+				.orElseThrow(() -> new HistourException(
+					ExceptionCode.BAD_REQUEST,
+					"Intro 미션을 수행하지 않음, MissionID: " + mission.getId() + ", MemberID: " + memberId));
+		}
+
+		if (mission.getType() == MissionType.FINAL) {
+			val place = placePort.findById(mission.getPlaceId());
+			if (completedMemberMissions.size() != place.getRequiredMissionCount() - 1) {
+				throw new HistourException(
+					ExceptionCode.BAD_REQUEST,
+					"Final 미션 전 필요한 완료 미션 개수가 부족함 ("
+						+ completedMemberMissions.size() + "/" + (place.getRequiredMissionCount() - 1)
+						+ "), MemberID: " + memberId);
+			}
+		}
 	}
 }

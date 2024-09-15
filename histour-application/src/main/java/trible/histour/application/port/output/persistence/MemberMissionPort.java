@@ -8,7 +8,7 @@ import trible.histour.application.domain.mission.MissionState;
 public interface MemberMissionPort {
 	List<MemberMission> findAllByMemberIdAndMissionIds(long memberId, List<Long> missionIds);
 
-	MemberMission save(MemberMission memberMission);
+	MemberMission save(long memberId, long missionId);
 
 	List<MemberMission> findAllByMemberId(long memberId);
 

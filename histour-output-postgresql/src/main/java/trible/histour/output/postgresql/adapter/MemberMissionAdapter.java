@@ -26,9 +26,10 @@ public class MemberMissionAdapter implements MemberMissionPort {
 	}
 
 	@Override
-	public MemberMission save(MemberMission memberMission) {
-		val memberMissionEntity = new MemberMissionEntity(memberMission);
-		return memberMissionRepository.save(memberMissionEntity).toDomain();
+	public MemberMission save(long memberId, long missionId) {
+		return memberMissionRepository.findByMemberIdAndMissionId(memberId, missionId)
+			.orElseGet(() -> memberMissionRepository.save(new MemberMissionEntity(memberId, missionId)))
+			.toDomain();
 	}
 
 	@Override
@@ -48,13 +49,18 @@ public class MemberMissionAdapter implements MemberMissionPort {
 
 	@Override
 	public void update(MemberMission memberMission) {
-		val memberMissionEntity = new MemberMissionEntity(memberMission);
+		val memberMissionEntity = find(memberMission.getId());
 		memberMissionEntity.update(memberMission);
 	}
 
 	@Override
 	public List<MemberMission> findAllByMemberIdAndState(long memberId, MissionState missionState) {
 		return memberMissionRepository.findAllByMemberIdAndState(memberId, missionState)
-				.stream().map(MemberMissionEntity::toDomain).toList();
+			.stream().map(MemberMissionEntity::toDomain).toList();
+	}
+
+	private MemberMissionEntity find(long id) {
+		return memberMissionRepository.findById(id)
+			.orElseThrow(() -> new HistourException(ExceptionCode.NOT_FOUND, "MemberMission ID: " + id));
 	}
 }
