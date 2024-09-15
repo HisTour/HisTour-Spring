@@ -3,6 +3,7 @@ package trible.histour.application.port.output.persistence;
 import java.util.List;
 
 import trible.histour.application.domain.mission.MemberMission;
+import trible.histour.application.domain.mission.MissionState;
 
 public interface MemberMissionPort {
 	List<MemberMission> findAllByMemberIdAndMissionIds(long memberId, List<Long> missionIds);
@@ -14,4 +15,6 @@ public interface MemberMissionPort {
 	MemberMission findByMemberIdAndMissionId(long memberId, long missionId);
 
 	void update(MemberMission memberMission);
+
+	List<MemberMission> findAllByMemberIdAndState(long memberId, MissionState missionState);
 }

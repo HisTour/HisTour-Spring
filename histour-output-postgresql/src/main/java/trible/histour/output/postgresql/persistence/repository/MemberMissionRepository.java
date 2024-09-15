@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import trible.histour.application.domain.mission.MissionState;
 import trible.histour.output.postgresql.persistence.entity.MemberMissionEntity;
 
 public interface MemberMissionRepository extends JpaRepository<MemberMissionEntity, Long> {
@@ -15,4 +16,6 @@ public interface MemberMissionRepository extends JpaRepository<MemberMissionEnti
 	void deleteByMemberId(long memberId);
 
 	Optional<MemberMissionEntity> findByMemberIdAndMissionId(long memberId, long missionId);
+
+	List<MemberMissionEntity> findAllByMemberIdAndState(long memberId, MissionState missionState);
 }
