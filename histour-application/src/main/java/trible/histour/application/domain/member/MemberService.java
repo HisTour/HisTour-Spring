@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import trible.histour.application.port.input.MemberUseCase;
+import trible.histour.application.port.input.dto.request.member.MemberProfileUpdateRequest;
 import trible.histour.application.port.input.dto.response.member.MemberInfoResponse;
 import trible.histour.application.port.output.persistence.CharacterPort;
 import trible.histour.application.port.output.persistence.MemberPort;
@@ -21,9 +22,9 @@ public class MemberService implements MemberUseCase {
 
 	@Transactional
 	@Override
-	public void updateCharacter(long memberId, long characterId) {
+	public void updateProfile(long memberId, MemberProfileUpdateRequest request) {
 		val member = memberPort.findById(memberId);
-		member.updateCharacter(characterId);
+		member.updateProfile(request);
 		memberPort.update(member);
 	}
 
