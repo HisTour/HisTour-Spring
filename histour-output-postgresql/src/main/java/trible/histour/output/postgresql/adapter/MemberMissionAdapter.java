@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import trible.histour.application.domain.mission.MemberMission;
+import trible.histour.application.domain.mission.MissionState;
 import trible.histour.application.port.output.persistence.MemberMissionPort;
 import trible.histour.common.exception.ExceptionCode;
 import trible.histour.common.exception.HistourException;
@@ -49,5 +50,11 @@ public class MemberMissionAdapter implements MemberMissionPort {
 	public void update(MemberMission memberMission) {
 		val memberMissionEntity = new MemberMissionEntity(memberMission);
 		memberMissionEntity.update(memberMission);
+	}
+
+	@Override
+	public List<MemberMission> findAllByMemberIdAndState(long memberId, MissionState missionState) {
+		return memberMissionRepository.findAllByMemberIdAndState(memberId, missionState)
+				.stream().map(MemberMissionEntity::toDomain).toList();
 	}
 }

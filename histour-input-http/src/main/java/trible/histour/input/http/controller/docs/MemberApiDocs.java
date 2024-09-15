@@ -4,7 +4,6 @@ import java.security.Principal;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
@@ -12,7 +11,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import trible.histour.application.port.input.dto.request.member.CharacterUpdateRequest;
 import trible.histour.application.port.input.dto.response.member.MemberInfoResponse;
-import trible.histour.application.port.input.dto.response.mission.MissionsResponse;
 import trible.histour.input.http.controller.dto.response.SuccessResponse;
 
 @Tag(name = "MemberApi", description = "회원 관련 api")
