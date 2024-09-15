@@ -17,6 +17,8 @@ import trible.histour.application.domain.quiz.Quiz;
 public record MissionsResponse(
 	@Schema(description = "필수 미션 수행 개수", example = "1")
 	int requiredMissionCount,
+	@Schema(description = "미션 선택 이미지 url", example = "https://www.test")
+	String selectMissionImageUrl,
 	@Schema(description = "미션 정보 목록")
 	List<MissionResponse> missions
 ) {
@@ -29,6 +31,7 @@ public record MissionsResponse(
 		Map<Long, List<MemberQuiz>> memberQuizzesByMissionId
 	) {
 		return MissionsResponse.builder()
+			.selectMissionImageUrl(place.getMissionsImageUrl())
 			.requiredMissionCount(place.getRequiredMissionCount())
 			.missions(toMissions(missions, memberMissionByMissionId, quizzesByMissionId, memberQuizzesByMissionId))
 			.build();
