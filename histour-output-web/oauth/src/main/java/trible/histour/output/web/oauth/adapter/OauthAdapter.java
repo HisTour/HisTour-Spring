@@ -36,8 +36,6 @@ public class OauthAdapter implements OauthPort {
 		return SocialInfo.builder()
 			.id(UUID.randomUUID().toString())
 			.type(SocialType.DEVELOPER)
-			.profileImageUrl("")
-			.username("test-user")
 			.build();
 	}
 }

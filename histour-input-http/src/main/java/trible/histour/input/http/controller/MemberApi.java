@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import trible.histour.application.port.input.MemberUseCase;
-import trible.histour.application.port.input.dto.request.member.CharacterUpdateRequest;
+import trible.histour.application.port.input.dto.request.member.MemberProfileUpdateRequest;
 import trible.histour.application.port.input.dto.response.member.MemberInfoResponse;
 import trible.histour.input.http.controller.docs.MemberApiDocs;
 import trible.histour.input.http.controller.dto.response.SuccessResponse;
@@ -25,12 +25,11 @@ public class MemberApi implements MemberApiDocs {
 	private final MemberUseCase memberUseCase;
 
 	@ResponseStatus(HttpStatus.OK)
-	@PatchMapping("/character")
+	@PatchMapping("/profile")
 	@Override
-	public SuccessResponse<?> updateCharacters(Principal principal, @RequestBody CharacterUpdateRequest request) {
+	public SuccessResponse<?> updateCharacters(Principal principal, @RequestBody MemberProfileUpdateRequest request) {
 		val memberId = Long.parseLong(principal.getName());
-		val characterId = request.characterId();
-		memberUseCase.updateCharacter(memberId, characterId);
+		memberUseCase.updateProfile(memberId, request);
 		return SuccessResponse.ofEmpty();
 	}
 

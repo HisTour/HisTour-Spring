@@ -23,8 +23,6 @@ public class KakaoService {
 		return SocialInfo.builder()
 			.id(data.id())
 			.type(SocialType.KAKAO)
-			.profileImageUrl(data.kakao_account().profile().profile_image_url())
-			.username(data.properties().nickname())
 			.build();
 	}
 

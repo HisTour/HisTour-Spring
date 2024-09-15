@@ -3,6 +3,7 @@ package trible.histour.application.domain.member;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
+import trible.histour.application.port.input.dto.request.member.MemberProfileUpdateRequest;
 
 @Builder
 @Getter
@@ -22,7 +23,8 @@ public class Member {
 		this.refreshToken = refreshToken;
 	}
 
-	public void updateCharacter(long characterId) {
-		this.characterId = characterId;
+	public void updateProfile(MemberProfileUpdateRequest request) {
+		this.characterId = request.characterId();
+		this.username = request.username();
 	}
 }

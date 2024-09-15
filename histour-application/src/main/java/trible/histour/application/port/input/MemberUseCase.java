@@ -1,9 +1,10 @@
 package trible.histour.application.port.input;
 
+import trible.histour.application.port.input.dto.request.member.MemberProfileUpdateRequest;
 import trible.histour.application.port.input.dto.response.member.MemberInfoResponse;
 
 public interface MemberUseCase {
-	void updateCharacter(long memberId, long characterId);
+	void updateProfile(long memberId, MemberProfileUpdateRequest request);
 
 	MemberInfoResponse getMemberInfo(long memberId);
 }

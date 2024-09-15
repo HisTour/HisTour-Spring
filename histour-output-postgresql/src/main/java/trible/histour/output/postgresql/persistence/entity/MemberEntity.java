@@ -23,17 +23,15 @@ public class MemberEntity extends BaseEntity {
 	private SocialType socialType;
 	@Column(nullable = false, updatable = false)
 	private String socialId;
-	private String profileImageUrl;
 	@Column(nullable = false)
 	private String username;
 	private String refreshToken;
 	private Long characterId;
 
-	public MemberEntity(SocialInfo social) {
+	public MemberEntity(SocialInfo social, String username) {
 		this.socialType = social.type();
 		this.socialId = social.id();
-		this.profileImageUrl = social.profileImageUrl();
-		this.username = social.username();
+		this.username = username;
 	}
 
 	public Member toDomain() {
@@ -41,7 +39,6 @@ public class MemberEntity extends BaseEntity {
 			.id(this.getId())
 			.socialType(socialType)
 			.socialId(socialId)
-			.profileImageUrl(profileImageUrl)
 			.username(username)
 			.refreshToken(refreshToken)
 			.characterId(characterId)
@@ -49,7 +46,6 @@ public class MemberEntity extends BaseEntity {
 	}
 
 	public void update(Member member) {
-		this.profileImageUrl = member.getProfileImageUrl();
 		this.username = member.getUsername();
 		this.refreshToken = member.getRefreshToken();
 		this.characterId = member.getCharacterId();
