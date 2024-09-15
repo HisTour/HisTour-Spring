@@ -43,8 +43,6 @@ public class AppleService {
 		return SocialInfo.builder()
 			.id(data.getSubject())
 			.type(SocialType.KAKAO)
-			.profileImageUrl("apple image url 임시")
-			.username("apple username 임시")
 			.build();
 	}
 
