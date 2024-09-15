@@ -11,13 +11,16 @@ public record SignInResponse(
 	@Schema(description = "나들ai 액세스 토큰", example = "ey...")
 	String accessToken,
 	@Schema(description = "나들ai 리프레시 토큰", example = "ey...")
-	String refreshToken
+	String refreshToken,
+	@Schema(description = "회원 이름", example = "깨비0")
+	String username
 ) {
 
 	public static SignInResponse of(Member member, String accessToken) {
 		return SignInResponse.builder()
 			.accessToken(accessToken)
 			.refreshToken(member.getRefreshToken())
+			.username(member.getUsername())
 			.build();
 	}
 }
