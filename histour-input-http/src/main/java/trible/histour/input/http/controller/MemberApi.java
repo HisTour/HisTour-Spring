@@ -27,7 +27,7 @@ public class MemberApi implements MemberApiDocs {
 	@ResponseStatus(HttpStatus.OK)
 	@PatchMapping("/profile")
 	@Override
-	public SuccessResponse<?> updateCharacters(Principal principal, @RequestBody MemberProfileUpdateRequest request) {
+	public SuccessResponse<?> updateProfile(Principal principal, @RequestBody MemberProfileUpdateRequest request) {
 		val memberId = Long.parseLong(principal.getName());
 		memberUseCase.updateProfile(memberId, request);
 		return SuccessResponse.ofEmpty();

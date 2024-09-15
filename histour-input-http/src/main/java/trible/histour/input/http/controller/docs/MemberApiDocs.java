@@ -17,8 +17,8 @@ import trible.histour.input.http.controller.dto.response.SuccessResponse;
 public interface MemberApiDocs {
 
 	@Operation(
-		summary = "캐릭터 설정 api",
-		description = "회원의 캐릭터를 설정합니다.",
+		summary = "프로필 수정 api",
+		description = "회원의 프로필 정보를 수정합니다. 변경되지 않는 값은 기존과 동일한 값으로 요청해주세요.",
 		responses = {
 			@ApiResponse(
 				responseCode = "200",
@@ -26,10 +26,10 @@ public interface MemberApiDocs {
 				content = @Content(schema = @Schema(implementation = SuccessResponse.class))),
 		}
 	)
-	SuccessResponse<?> updateCharacters(
+	SuccessResponse<?> updateProfile(
 		@Parameter(hidden = true) Principal principal,
 		@RequestBody(
-			description = "캐릭터 설정 Request Body",
+			description = "프로필 수정 Request Body",
 			required = true,
 			content = @Content(schema = @Schema(implementation = MemberProfileUpdateRequest.class))
 		) MemberProfileUpdateRequest request
