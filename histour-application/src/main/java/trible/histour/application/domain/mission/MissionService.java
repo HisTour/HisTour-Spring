@@ -88,16 +88,16 @@ public class MissionService implements MissionUseCase {
 		List<MemberMission> memberMissions,
 		List<Mission> missions
 	) {
-		val completedMemberMissions = memberMissions.stream().filter(MemberMission::isCompleted).toList();
-
-		completedMemberMissions.stream()
+		memberMissions.stream()
 			.filter(it -> it.getMissionId() == mission.getId())
 			.findAny()
 			.ifPresent(it -> {
 				throw new HistourException(
 					ExceptionCode.BAD_REQUEST,
-					"이미 완료된 미션, MissionID: " + mission.getId() + ", MemberID: " + memberId);
+					"이미 해금한 미션, MissionID: " + mission.getId() + ", MemberID: " + memberId);
 			});
+
+		val completedMemberMissions = memberMissions.stream().filter(MemberMission::isCompleted).toList();
 
 		if (mission.getType() == MissionType.NORMAL) {
 			val missionById = missions.stream().collect(Collectors.toMap(Mission::getId, it -> it));

@@ -35,7 +35,7 @@ public class QuizService implements QuizUseCase {
 	@Override
 	public QuizzesResponse getQuizzes(long memberId, long missionId) {
 		val mission = missionPort.findById(missionId);
-		if (memberMissionPort.isExistByMemberIdAndMissionId(memberId, missionId)) {
+		if (!memberMissionPort.isExistByMemberIdAndMissionId(memberId, missionId)) {
 			throw new HistourException(
 				ExceptionCode.NOT_UNLOCK_MISSION,
 				"MissionID: " + mission.getId() + ", MemberID: " + memberId);
