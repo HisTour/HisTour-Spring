@@ -18,4 +18,6 @@ public interface MemberMissionRepository extends JpaRepository<MemberMissionEnti
 	Optional<MemberMissionEntity> findByMemberIdAndMissionId(long memberId, long missionId);
 
 	List<MemberMissionEntity> findAllByMemberIdAndState(long memberId, MissionState missionState);
+
+	boolean existsByMemberIdAndMissionId(long memberId, long missionId);
 }

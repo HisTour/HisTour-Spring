@@ -90,13 +90,6 @@ public class MissionService implements MissionUseCase {
 	) {
 		val completedMemberMissions = memberMissions.stream().filter(MemberMission::isCompleted).toList();
 
-		memberMissions.stream()
-			.filter(it -> it.getMissionId() == mission.getId())
-			.findAny()
-			.orElseThrow(() -> new HistourException(
-				ExceptionCode.NOT_UNLOCK_MISSION,
-				"MissionID: " + mission.getId() + ", MemberID: " + memberId));
-
 		completedMemberMissions.stream()
 			.filter(it -> it.getMissionId() == mission.getId())
 			.findAny()

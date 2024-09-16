@@ -17,4 +17,6 @@ public interface MemberMissionPort {
 	void update(MemberMission memberMission);
 
 	List<MemberMission> findAllByMemberIdAndState(long memberId, MissionState missionState);
+
+	boolean isExistByMemberIdAndMissionId(long memberId, long missionId);
 }

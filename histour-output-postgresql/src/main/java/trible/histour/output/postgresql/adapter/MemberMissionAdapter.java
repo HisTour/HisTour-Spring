@@ -59,6 +59,11 @@ public class MemberMissionAdapter implements MemberMissionPort {
 			.stream().map(MemberMissionEntity::toDomain).toList();
 	}
 
+	@Override
+	public boolean isExistByMemberIdAndMissionId(long memberId, long missionId) {
+		return memberMissionRepository.existsByMemberIdAndMissionId(memberId, missionId);
+	}
+
 	private MemberMissionEntity find(long id) {
 		return memberMissionRepository.findById(id)
 			.orElseThrow(() -> new HistourException(ExceptionCode.NOT_FOUND, "MemberMission ID: " + id));
