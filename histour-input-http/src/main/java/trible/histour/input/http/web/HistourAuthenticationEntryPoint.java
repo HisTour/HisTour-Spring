@@ -13,13 +13,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.val;
 import trible.histour.common.exception.ExceptionCode;
 import trible.histour.input.http.controller.dto.response.ExceptionResponse;
 
 @Component
+@RequiredArgsConstructor
 public class HistourAuthenticationEntryPoint implements AuthenticationEntryPoint {
-	private final ObjectMapper objectMapper = new ObjectMapper();
+	private final ObjectMapper objectMapper;
 
 	@Override
 	public void commence(
