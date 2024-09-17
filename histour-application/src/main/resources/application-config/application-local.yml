@@ -8,3 +8,7 @@ server:
 histour:
   secret:
     key: ${HISTOUR_SECRET_KEY}
+  token:
+    expire_time:
+      access: ${EXPIRE_ACCESS_TOKEN_TIME}
+      refresh: ${EXPIRE_REFRESH_TOKEN_TIME}
