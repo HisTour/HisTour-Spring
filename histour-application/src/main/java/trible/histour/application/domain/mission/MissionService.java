@@ -69,17 +69,21 @@ public class MissionService implements MissionUseCase {
 	@Override
 	public void completeMemberMission(long memberId, UpdatedMissionsRequest request) {
 		val completeMissionId = request.completedMissionId();
-		val completedMemberMission = memberMissionPort.findByMemberIdAndMissionId(memberId, completeMissionId);
-		completedMemberMission.complete();
-		memberMissionPort.update(completedMemberMission);
+		if (completeMissionId != null) {
+			val completedMemberMission = memberMissionPort.findByMemberIdAndMissionId(memberId, completeMissionId);
+			completedMemberMission.complete();
+			memberMissionPort.update(completedMemberMission);
+		}
 
 		val nextMissionId = request.nextMissionId();
-		val mission = missionPort.findById(nextMissionId);
-		val missions = missionPort.findAllByPlaceId(mission.getPlaceId());
-		val missionIds = missions.stream().map(Mission::getId).toList();
-		val memberMissions = memberMissionPort.findAllByMemberIdAndMissionIds(memberId, missionIds);
-		validMemberQuiz(memberId, mission, memberMissions, missions);
-		memberMissionPort.save(memberId, nextMissionId);
+		if (nextMissionId != null) {
+			val mission = missionPort.findById(nextMissionId);
+			val missions = missionPort.findAllByPlaceId(mission.getPlaceId());
+			val missionIds = missions.stream().map(Mission::getId).toList();
+			val memberMissions = memberMissionPort.findAllByMemberIdAndMissionIds(memberId, missionIds);
+			validMemberQuiz(memberId, mission, memberMissions, missions);
+			memberMissionPort.save(memberId, nextMissionId);
+		}
 	}
 
 	private void validMemberQuiz(
