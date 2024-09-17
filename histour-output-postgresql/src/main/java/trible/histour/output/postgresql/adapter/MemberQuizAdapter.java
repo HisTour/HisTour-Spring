@@ -27,4 +27,9 @@ public class MemberQuizAdapter implements MemberQuizPort {
 		val memberQuizEntity = new MemberQuizEntity(memberQuiz);
 		memberQuizRepository.save(memberQuizEntity).toDomain();
 	}
+
+	@Override
+	public boolean isExistByMemberIdAndQuizId(long memberId, long quizId) {
+		return memberQuizRepository.existsByMemberIdAndQuizId(memberId, quizId);
+	}
 }

@@ -48,6 +48,10 @@ public class QuizService implements QuizUseCase {
 	@Override
 	public QuizGradeResponse gradeQuiz(long memberId, QuizGradeRequest quizGradeRequest) {
 		val quiz = quizPort.findById(quizGradeRequest.quizId());
+		if (memberQuizPort.isExistByMemberIdAndQuizId(memberId, quiz.getId())) {
+			throw new HistourException(ExceptionCode.ALREADY_COMPLETE_QUIZ,
+					"MemberId: " + memberId + ", QuizId: " + quiz.getId());
+		}
 		val quizType = quiz.getType();
 		val mission = missionPort.findById(quiz.getMissionId());
 		val requiredMissionCount = placePort.findById(mission.getPlaceId()).getRequiredMissionCount();
@@ -72,7 +76,7 @@ public class QuizService implements QuizUseCase {
 		val completeMissionNumber = memberCompleteMissions.stream()
 			.filter(memberMission -> placeMissionIds.contains(memberMission.getMissionId()))
 			.count();
-		return (int)completeMissionNumber;
+		return (int)completeMissionNumber + 1;
 	}
 
 	private boolean getIsAnswerCorrect(QuizType quizType, String memberAnswer, String answer) {

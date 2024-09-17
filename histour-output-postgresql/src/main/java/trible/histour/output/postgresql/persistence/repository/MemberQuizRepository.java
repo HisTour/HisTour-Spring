@@ -10,4 +10,6 @@ public interface MemberQuizRepository extends JpaRepository<MemberQuizEntity, Lo
 	List<MemberQuizEntity> findAllByMemberIdAndQuizIdIn(long memberId, List<Long> quizIds);
 
 	void deleteByMemberId(long memberId);
+
+	boolean existsByMemberIdAndQuizId(long memberId, long quizId);
 }
