@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.ServletWebRequest;
@@ -33,6 +34,23 @@ public class ExceptionAdvice {
 					.code(exception.exceptionCode)
 					.message(exception.defaultMessage)
 					.cause(exception.detailMessage)
+					.timestamp(LocalDateTime.now())
+					.build()
+			);
+	}
+
+	@ExceptionHandler(HttpMessageNotReadableException.class)
+	public ResponseEntity<ExceptionResponse> handleHttpMessageNotReadableException(
+		HttpMessageNotReadableException exception
+	) {
+		log.error(exception.getMessage());
+		return ResponseEntity
+			.status(HttpStatus.BAD_REQUEST)
+			.body(
+				ExceptionResponse.builder()
+					.code(HttpStatus.BAD_REQUEST.toString())
+					.message("잘못된 형식")
+					.cause(exception.getMessage())
 					.timestamp(LocalDateTime.now())
 					.build()
 			);
