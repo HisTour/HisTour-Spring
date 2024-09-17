@@ -1,5 +1,6 @@
 package trible.histour.application.domain.auth;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,8 +20,10 @@ public class AuthService implements AuthUseCase {
 	private final OauthPort oauthPort;
 	private final TokenManager tokenManager;
 
-	private static final Long ACCESS_TOKEN_EXPIRATION_TIME = 60 * 60 * 1000 * 2 * 12 * 1000000L;
-	private static final Long REFRESH_TOKEN_EXPIRATION_TIME = 60 * 60 * 1000 * 24 * 14L;
+	@Value("${histour.token.expire_time.access}")
+	private long accessTokenExpiredTime;
+	@Value("${histour.token.expire_time.refresh}")
+	private long refreshTokenExpiredTime;
 
 	@Transactional
 	@Override
@@ -53,10 +56,10 @@ public class AuthService implements AuthUseCase {
 	}
 
 	private String generateAccessToken(long memberId) {
-		return tokenManager.generateToken(memberId, ACCESS_TOKEN_EXPIRATION_TIME);
+		return tokenManager.generateToken(memberId, accessTokenExpiredTime);
 	}
 
 	private String generateRefreshToken(long memberId) {
-		return tokenManager.generateToken(memberId, REFRESH_TOKEN_EXPIRATION_TIME);
+		return tokenManager.generateToken(memberId, refreshTokenExpiredTime);
 	}
 }
