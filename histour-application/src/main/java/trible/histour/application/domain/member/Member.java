@@ -13,7 +13,6 @@ public class Member {
 	SocialType socialType;
 	@NotNull
 	String socialId;
-	String profileImageUrl;
 	@NotNull
 	String username;
 	String refreshToken;

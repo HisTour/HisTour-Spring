@@ -38,7 +38,7 @@ public class AppleService {
 	@Value("${oauth.url.apple}")
 	private String appleUrl;
 
-	public SocialInfo login(String accessToken) { //TODO: 임시 풀기
+	public SocialInfo login(String accessToken) {
 		val data = getAppleData(accessToken);
 		return SocialInfo.builder()
 			.id(data.getSubject())
