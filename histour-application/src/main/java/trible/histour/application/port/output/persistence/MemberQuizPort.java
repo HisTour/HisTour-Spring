@@ -8,4 +8,6 @@ public interface MemberQuizPort {
 	List<MemberQuiz> findAllByMemberIdAndQuizIds(long memberId, List<Long> quizIds);
 
 	void save(MemberQuiz memberQuiz);
+
+	boolean isExistByMemberIdAndQuizId(long memberId, long quizId);
 }

@@ -39,7 +39,8 @@ public interface QuizApiDocs {
 			summary = "퀴즈 채점 API",
 			description = "퀴즈를 채점합니다.",
 			responses = {
-				@ApiResponse(responseCode = "201", description = "CREATED success")
+				@ApiResponse(responseCode = "201", description = "CREATED success"),
+				@ApiResponse(responseCode = "400", description = "이미 해결한 퀴즈"),
 			}
 	)
 	SuccessResponse<QuizGradeResponse> gradeMemberQuiz(
