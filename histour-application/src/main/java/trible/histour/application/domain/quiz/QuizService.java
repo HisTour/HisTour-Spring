@@ -76,7 +76,7 @@ public class QuizService implements QuizUseCase {
 		val completeMissionNumber = memberCompleteMissions.stream()
 			.filter(memberMission -> placeMissionIds.contains(memberMission.getMissionId()))
 			.count();
-		return (int)completeMissionNumber + 1;
+		return (int)completeMissionNumber;
 	}
 
 	private boolean getIsAnswerCorrect(QuizType quizType, String memberAnswer, String answer) {
