@@ -8,3 +8,5 @@ data:
     mapX: 126.7052
     mapY: 37.4563
     radius: 10000
+  chatAssistant:
+    aiApi: ${AI_CHAT_SECRET}
