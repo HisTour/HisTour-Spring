@@ -1,6 +1,9 @@
 dependencies {
+    implementation project(':histour-common')
     implementation project(':histour-input-http')
     implementation project(':histour-output-postgresql')
+    implementation project(':histour-output-web:oauth')
+    implementation project(':histour-output-web:data')
 
     implementation 'org.springframework.boot:spring-boot-starter-web'
 }

@@ -1,6 +1,16 @@
 spring:
   config:
+    import:
+      - classpath:database-config/application-prod.yml
+      - classpath:application-config/application-prod.yml
+      - classpath:discord-config/application-prod.yml
+      - classpath:oauth-config/application-prod.yml
+      - classpath:data-config/application-local.yml
     activate:
       on-profile: prod
 server:
   port: 8080
+
+secret:
+  token: ${SECRET_MANAGER_TOKEN}
+  workspace-id: ${SECRET_MANAGER_WORKSPACE_ID}

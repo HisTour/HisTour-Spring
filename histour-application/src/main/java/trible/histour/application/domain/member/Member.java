@@ -1,7 +1,29 @@
 package trible.histour.application.domain.member;
 
-public record Member(
-		long id,
-		String name
-) {
+import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
+import lombok.Getter;
+import trible.histour.application.port.input.dto.request.member.MemberProfileUpdateRequest;
+
+@Builder
+@Getter
+public class Member {
+	Long id;
+	@NotNull
+	SocialType socialType;
+	@NotNull
+	String socialId;
+	@NotNull
+	String username;
+	String refreshToken;
+	Long characterId;
+
+	public void updateRefreshToken(String refreshToken) {
+		this.refreshToken = refreshToken;
+	}
+
+	public void updateProfile(MemberProfileUpdateRequest request) {
+		this.characterId = request.characterId();
+		this.username = request.username();
+	}
 }

@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
 @EnableJpaAuditing
-@EntityScan(basePackages = "trible.histour")
-@EnableJpaRepositories(basePackages = "trible.histour")
+@EntityScan(basePackages = {"trible.histour"})
+@EnableJpaRepositories(basePackages = {"trible.histour"})
 public class PostgresqlConfig {
 }

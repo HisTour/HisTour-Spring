@@ -1,0 +1,12 @@
+data:
+  holiday:
+    api: http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getAnniversaryInfo
+    secret: ${DATA_HOLIDAY_SECRET}
+  attraction:
+    api: https://apis.data.go.kr/B551011/Odii/storyLocationBasedList
+    serviceKey: ${DATA_ATTRACTION_SECRET}
+    mapX: 126.7052
+    mapY: 37.4563
+    radius: 10000
+  chatAssistant:
+    aiApi: ${AI_CHAT_SECRET}
