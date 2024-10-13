@@ -55,6 +55,10 @@ public class SecurityConfig {
 					.permitAll()
 					.requestMatchers(new AntPathRequestMatcher("/api/v1/auth", "POST"))
 					.permitAll()
+					.requestMatchers(new AntPathRequestMatcher("/api/v1/attractions", "GET"))
+					.permitAll()
+					.requestMatchers(new AntPathRequestMatcher("/api/v1/history/holiday", "GET"))
+					.permitAll()
 					.anyRequest()
 					.authenticated())
 			.addFilterBefore(authenticationFilter, UsernamePasswordAuthenticationFilter.class);
